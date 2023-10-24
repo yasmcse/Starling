@@ -5,7 +5,7 @@ Tech Stack Use </br>
 
 * Gradle Build with version catalogue using .toml file </br>
 * Multi module gradle app with feature gradle modules </br>
-* Jetpack Navigation Component to navigate between fragment in feature modules </br>
+* Jetpack Navigation Component to navigate between fragments in feature modules </br>
 * Jetpack Compose with fragments </br>
 * Coroutines and Kotlin Flow for a sychronous api calls.
 * Implementation of clean architecture and its layers. </br>
