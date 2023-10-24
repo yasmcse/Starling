@@ -11,6 +11,6 @@ Tech Stack Use </br>
 * Unit testing using JUnit, mockk and kotlin mockito. </br>
 
 Note:- api access token is ignored to be published on git. resides in local.properties and provided through BuildConfig. 
-       Please generate from starling dashboard anf add into local.properties as its only for 24hrs.
+       Please generate from starling dashboard add into local.properties as its only for 24hrs.
 
        
