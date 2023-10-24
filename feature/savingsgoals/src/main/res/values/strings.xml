@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="submit">Submit</string>
+    <string name="add_new_saving_goal">Add New Saving Goal</string>
+    <string name="add_new_goal">Add New Goal</string>
+    <string name="please_select_saving_goal">Please select Saving Goal</string>
+    <string name="no_saving_goals_found">No Saving Goals Found</string>
+    <string name="round_up_saved">Round Up Saved</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="target">Target = %1$s  %2$s</string>
+    <string name="pound_coin">Pound coin</string>
+    <string name="total_saved">Total Saved = %1$s  %2$s</string>
+    <string name="trip_name">Trip Name</string>
+    <string name="please_enter_trip_name">Please enter Trip Name</string>
+    <string name="currency">Currency</string>
+    <string name="currency_e_g_gbp">Currency e.g, GBP</string>
+    <string name="amount">Amount</string>
+    <string name="amount_e_g_100">Amount e.g, 100</string>
+    <string name="add_goal">Add new saving Goal</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_internet">No internet</string>
+    <string name="back_arrow">Back arrow</string>
+    <string name="starling_bank">Starling Bank</string>
+    <string name="menu_icon">Menu Icon</string>
+    <string name="bank_icon">Bank Icon</string>
+    <string name="home">Home</string>
+    <string name="bottom_bar_icon">Bottom Bar Icon</string>
+    <string name="saving_goals">Saving Goals</string>
+    <string name="add_money_into">Add money into %1$s</string>
+    <string name="confirm">Confirm</string>
+    <string name="direction_in">IN</string>
+    <string name="direction_out">OUT</string>
+    <string name="no_transactions_found">No Transactions Found</string>
+    <string name="transactions_empty_can_t_round_up">Transactions Empty, can\'t round up</string>
+</resources>

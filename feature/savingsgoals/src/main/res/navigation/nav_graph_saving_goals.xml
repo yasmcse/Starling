@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_saving_goals"
+    app:startDestination="@id/saving_goals_fragment">
+
+
+    <fragment
+        android:id="@+id/saving_goals_fragment"
+        android:name="com.challenge.savingsgoals.SavingGoalsFragment"
+        android:label="@string/savings_goals">
+
+        <argument
+            android:name="saving_goals"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_new_goal_fragment"
+        android:name="com.challenge.savingsgoals.AddNewGoalFragment"
+        android:label="@string/add_new_saving_goal">
+
+        <argument
+            android:name="add_new_saving_goal"
+            app:argType="long" />
+    </fragment>
+
+
+    <action
+        android:id="@+id/action_to_saving_goals_fragment"
+        app:destination="@+id/saving_goals_fragment" />
+    <action
+        android:id="@+id/action_to_add_new_saving_goal"
+        app:destination="@+id/add_new_goal_fragment" />
+
+</navigation>

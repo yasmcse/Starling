@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Starling Bank App</string>
+    <string name="savings_goals_fragment">Saving Goals Fragment</string>
+</resources>

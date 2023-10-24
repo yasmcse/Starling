@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="amount">Amount</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="currency">Currency</string>
+    <string name="direction">Direction</string>
+    <string name="round_up_and_add_to_saving_goals">Round up and add to saving goals</string>
+    <string name="round_up">Round Up</string>
+</resources>
