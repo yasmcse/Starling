@@ -5,6 +5,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.common.utils.CurrencyUnitsMapper
+import com.challenge.common.utils.DefaultDispatcherProvider
+import com.challenge.common.utils.DispatcherProvider
 import com.challenge.di.NetworkResult
 import com.challenge.domain.GetAccountsUseCase
 import com.challenge.domain.GetTransactionsBetweenDatesUseCase
@@ -22,7 +24,8 @@ class HomeViewModel @Inject constructor(
     private val getAccountUseCase: GetAccountsUseCase,
     private val getTransactionsBetweenDatesUseCase: GetTransactionsBetweenDatesUseCase,
     private val userAccountRepository: UserAccountRepository,
-    private val currencyUnitsMapper: CurrencyUnitsMapper
+    private val currencyUnitsMapper: CurrencyUnitsMapper,
+    private val defaultDispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     private val _transactionsList: MutableStateFlow<NetworkResult<Transactions>> =
@@ -31,7 +34,7 @@ class HomeViewModel @Inject constructor(
 
 
     @VisibleForTesting
-    fun fetchTransactions() = viewModelScope.launch() {
+    fun fetchTransactions() = viewModelScope.launch(defaultDispatcherProvider.main) {
         getAccountUseCase.getAccounts().collect { userAccount ->
             if (userAccount.data?.accounts?.isNotEmpty() == true) {
                 with(userAccount) {
@@ -85,7 +88,7 @@ class HomeViewModel @Inject constructor(
 
     // Change the dates as you like for testing purposes
     companion object {
-        const val minTransactionTimeStamp = "2023-10-16T09:34:56.000Z"
-        const val maxTransactionTimeStamp = "2023-10-22T20:22:56.000Z"
+        const val minTransactionTimeStamp = "2023-10-31T09:34:56.000Z"
+        const val maxTransactionTimeStamp = "2023-11-03T20:22:56.000Z"
     }
 }
