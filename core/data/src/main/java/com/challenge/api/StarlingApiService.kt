@@ -1,13 +1,12 @@
 package com.challenge.api
 
-import com.challenge.di.ApiResponse
-import com.challenge.model.Accounts
-import com.challenge.model.NewSavingGoal
-import com.challenge.model.NewSavingGoalResponse
-import com.challenge.model.SavingAmount
-import com.challenge.model.SavingGoalTransferResponse
-import com.challenge.model.SavingsGoals
-import com.challenge.model.Transactions
+import com.challenge.common.model.accountDto.AccountsDto
+import com.challenge.common.model.newsavingdto.NewSavingGoal
+import com.challenge.common.model.newsavingdto.NewSavingGoalResponseDto
+import com.challenge.common.model.savinggoals.SavingAmount
+import com.challenge.common.model.savinggoaldto.SavingsGoalsDto
+import com.challenge.common.model.savinggoaldto.SavingGoalTransferResponseDto
+import com.challenge.common.model.transactiondto.TransactionsDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,7 +20,7 @@ interface StarlingApiService {
 
     // Account
     @GET("${API_VERSION}/accounts")
-    suspend fun getUserAccounts(): Response<Accounts>
+    suspend fun getUserAccounts(): Response<AccountsDto>
 
 
     // Transactions
@@ -31,11 +30,11 @@ interface StarlingApiService {
         @Path("categoryUid") categoryUid: String,
         @Query("minTransactionTimestamp") minTransactionTimeStamp: String,
         @Query("maxTransactionTimestamp") maxTransactionTimeStamp: String
-    ): Response<Transactions>
+    ): Response<TransactionsDto>
 
     // Saving Goals
     @GET("${API_VERSION}/account/{accountUid}/savings-goals")
-    suspend fun getSavingGoals(@Path("accountUid") accountUid: String): Response<SavingsGoals>
+    suspend fun getSavingGoals(@Path("accountUid") accountUid: String): Response<SavingsGoalsDto>
 
     @PUT("${API_VERSION}/account/{accountUid}/savings-goals/{savingsGoalUid}/add-money/{transferUid}")
     suspend fun addMoneyIntoSavingGoal(
@@ -43,13 +42,12 @@ interface StarlingApiService {
         @Path("savingsGoalUid") savingsGoalUid: String,
         @Path("transferUid") transferUid: String,
         @Body savingAmount: SavingAmount
-    ): Response<SavingGoalTransferResponse>
+    ): Response<SavingGoalTransferResponseDto>
 
     @PUT("${API_VERSION}/account/{accountUid}/savings-goals")
     suspend fun createNewSavingGoal(
         @Path("accountUid") accountUid: String,
         @Body newSavingGoal: NewSavingGoal
-    ):Response<NewSavingGoalResponse>
-
+    ):Response<NewSavingGoalResponseDto>
 
 }

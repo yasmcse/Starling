@@ -1,7 +1,7 @@
 package com.challenge.savingsgoals.mapper
 
-import com.challenge.model.NewSavingGoal
-import com.challenge.model.SavingTarget
+import com.challenge.common.model.newsavingdto.NewSavingGoal
+import com.challenge.common.model.savinggoaldto.SavingTarget
 import javax.inject.Inject
 
 class NewSavingGoalMapper @Inject constructor() {

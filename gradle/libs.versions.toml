@@ -1,29 +1,30 @@
 # Dependcy versions
 [versions]
+activityCompose = "1.8.2"
 agp = "8.1.1"
 org-jetbrains-kotlin-android = "1.8.10"
-core-ktx = "1.9.0"
+core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.2"
 activity-ktx-version = "1.8.0"
-compose-runtime = "1.5.3"
-compose-bom = "2023.03.00"
-dagger-hilt = "2.44"
+compose-runtime = "1.6.1"
+compose-bom = "2024.02.00"
+dagger-hilt = "2.48.1"
 kotlin-kapt = "1.9.10"
 appcompat = "1.6.1"
-compose-material = "1.5.3"
+compose-material = "1.6.1"
 kotlin = "1.8.10"
 retrofit = "2.9.0"
-okhttp-logging = "4.9.1"
-activity-compose-version = "1.4.0"
-fragment-version = "1.6.1"
+okhttp-logging = "4.12.0"
+activity-compose-version = "1.8.2"
 com-google-android-material-material = "1.10.0"
-navigation-version  = "2.7.4"
+compose-hilt-navigation-version  = "1.1.0"
+nav-ui-ktx-compose = "2.7.7"
 navigation-args = "2.5.3"
-lifecycle-version = "2.6.2"
-material = "1.10.0"
+lifecycle-version = "2.7.0"
+material = "1.11.0"
 junitVersion = '4.13.2'
 hamcrestVersion = '1.3'
 mockkVersion = "1.13.7"
@@ -31,13 +32,14 @@ mockAgentVersion = "1.13.7"
 mockitoKotlinVersion = '2.2.0'
 mockkAgentVersion = "1.13.7"
 coroutineVersion = '1.6.4'
-mockitoCoreVersion = "3.3.3"
+mockitoCoreVersion = "4.8.0"
 coreTestingVersion = "2.2.0"
 
 
 
 # Dependencies
 [libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
@@ -59,7 +61,7 @@ dagger-hilt ={ group = "com.google.dagger", name = "hilt-android", version.ref =
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger-hilt" }
 # Retrofit
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
-retrofit-convertor-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
 
 # View Model dependencies
@@ -75,15 +77,13 @@ lifecycle-view-model-utilities-compose = { group = "androidx.lifecycle", name = 
 # Appcompat
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
-# Androidx Activity and Fragment
+# Androidx Activity
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-compose-version" }
-androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-version"}
 compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose-material" }
 
 # Navigation dependecies
-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation-version" }
-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-version"}
-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-version"}
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav-ui-ktx-compose"}
+compose-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "compose-hilt-navigation-version"}
 
 # Dependencies for unit testing
 junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
@@ -112,10 +112,11 @@ nav-args-gradle-plugin = { id = "androidx.navigation-safe-args-gradle-plugin", v
 
 # Bundles for using multiple similar dependencies
 [bundles]
-retrofit-bundle = ["retrofit","retrofit-convertor-gson","okhttp-logging-interceptor"]
+gson = ["gson-converter"]
+retrofit-bundle = ["retrofit","gson-converter","okhttp-logging-interceptor"]
 dagger-bundle = ["dagger-hilt","dagger-hilt-compiler"]
-activity-fragment-material-bundle = ["appcompat","activity-ktx","androidx-fragment","compose-material"]
+activity-material-bundle = ["appcompat","activity-ktx","compose-material"]
 compose-bundle = ["compose-runtime","compose-bom","ui","ui-graphics","ui-tooling","ui-tooling-preview","ui-test-manifest","ui-test-junit4"]
-navigation-bundle = ["navigation-fragment","navigation-ui", "navigation-compose"]
+navigation-bundle = ["compose-hilt-navigation-compose"]
 lifecycle-bundle = ["lifecycle-run-time","lifecycle-view-model","lifecycle-view-model-compose","lifecycle-view-model-utilities-compose","lifecycle-live-data"]
 unit-test-bundle = ["junit","mockito-kotlin","mockk","mockk-agent","coroutine-test","mockito-core","arch-core-testing" ]

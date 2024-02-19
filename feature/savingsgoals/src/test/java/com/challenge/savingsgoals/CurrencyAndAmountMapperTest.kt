@@ -1,7 +1,7 @@
 package com.challenge.savingsgoals
 
-import com.challenge.model.SavingAmount
-import com.challenge.model.SavingGoalAmount
+import com.challenge.common.model.savinggoals.SavingAmount
+import com.challenge.common.model.savinggoals.SavingGoalAmount
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import org.junit.Assert.assertEquals
 import org.junit.Before

@@ -10,7 +10,8 @@
     <string name="home">Home</string>
     <string name="bottom_bar_icon">Bottom Bar Icon</string>
     <string name="saving_goals">Saving Goals</string>
-    <string name="add_money_into">Add money into %1$s</string>
+    <string name="add_new_goal">New Goal</string>
+    <string name="add_money_into">Add round up sum into %1$s</string>
     <string name="confirm">Confirm</string>
     <string name="direction_in">IN</string>
     <string name="direction_out">OUT</string>

@@ -1,9 +1,8 @@
 package com.challenge.common.utils
 
-import androidx.annotation.VisibleForTesting
-import com.challenge.model.Amount
-import com.challenge.model.SavingsGoal
-import com.challenge.model.Transaction
+import com.challenge.common.model.Amount
+import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
+import com.challenge.common.model.transactiondomain.TransactionDomain
 import java.lang.String
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -14,15 +13,13 @@ import kotlin.math.floor
 import kotlin.with
 
 class CurrencyUnitsMapper @Inject constructor() {
-
-    @VisibleForTesting
-    fun convertMinorUnitToMajorUnit(minorUnitsList: List<Transaction>): List<Transaction> {
-        val convertedList: MutableList<Transaction> = mutableListOf()
+    fun convertMinorUnitToMajorUnit(minorUnitsList: List<TransactionDomain>): List<TransactionDomain> {
+        val convertedList: MutableList<TransactionDomain> = mutableListOf()
 
         for (transaction in minorUnitsList) {
             with(transaction) {
                 convertedList.add(
-                    Transaction(
+                    TransactionDomain(
                         feedItemUid, categoryUid,
                         Amount(
                             amount.currency,
@@ -42,14 +39,13 @@ class CurrencyUnitsMapper @Inject constructor() {
         return convertedList
     }
 
-    @VisibleForTesting
-    fun convertSavingGoalUnits(minorUnitsList: List<SavingsGoal>): List<SavingsGoal> {
-        val convertedList: MutableList<SavingsGoal> = mutableListOf()
+    fun convertSavingGoalUnits(minorUnitsList: List<SavingsGoalDomain>): List<SavingsGoalDomain> {
+        val convertedList: MutableList<SavingsGoalDomain> = mutableListOf()
 
         for (savingGoal in minorUnitsList) {
             with(savingGoal) {
                 convertedList.add(
-                    SavingsGoal(
+                    SavingsGoalDomain(
                         savingsGoalUid,
                         name,
                         Amount(
@@ -61,9 +57,7 @@ class CurrencyUnitsMapper @Inject constructor() {
                             savingGoal.totalSaved.currency,
                             savingGoal.totalSaved.minorUnits,
                             convertMinorUnitsToMajorUnits(savingGoal.totalSaved.minorUnits)
-                        ),
-                        savingGoal.savedPercentage,
-                        savingGoal.state
+                        )
                     )
                 )
             }
@@ -72,21 +66,18 @@ class CurrencyUnitsMapper @Inject constructor() {
     }
 
 
-    @VisibleForTesting
     fun convertMinorUnitsToMajorUnits(minorUnits: Long): Double {
         val denominator = 100.00
         val num = BigDecimal(minorUnits.div(denominator))
         return num.toDouble()
     }
 
-    @VisibleForTesting
-    fun convertMajorUnitsToMinorUnits(majorUnits: Double):Double{
+    fun convertMajorUnitsToMinorUnits(majorUnits: Double): Double {
         val denominator = 100.00
         val num = BigDecimal(majorUnits.times(denominator))
         return roundToNearestPound(num.toDouble())
     }
 
-    @VisibleForTesting
     fun roundToNearestPound(value: Double): Double {
         val floorValue = floor(value)
         val ceilValue = ceil(value)
@@ -101,13 +92,12 @@ class CurrencyUnitsMapper @Inject constructor() {
         }
     }
 
-    @VisibleForTesting
-    fun sumUpFractionPartMajorUnit(list: List<Transaction>): Double {
+    fun sumUpFractionPartMajorUnit(list: List<TransactionDomain>): Double {
         var sum = 0.0
         for (transaction in list) {
             val bigDecimal = BigDecimal(String.valueOf(transaction.amount.majorUnit))
             val intValue = bigDecimal.toInt()
-            sum+= (bigDecimal.subtract(
+            sum += (bigDecimal.subtract(
                 BigDecimal(intValue)
             )).toDouble()
         }

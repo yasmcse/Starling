@@ -1,6 +1,6 @@
 package com.challenge.di
 
-import com.challenge.repository.UserAccountRepository
+import com.challenge.common.UserAccountRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

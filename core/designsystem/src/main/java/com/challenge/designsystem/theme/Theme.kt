@@ -6,12 +6,12 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val DarkColorScheme = darkColors(
+private val darkColorScheme = darkColors(
     primary = Purple80,
     secondary = PurpleGrey80
 )
 
-private val LightColorScheme = lightColors(
+private val lightColorScheme = lightColors(
     primary = Purple40,
     secondary = PurpleGrey40,
     background = WhiteSmoke,
@@ -19,16 +19,15 @@ private val LightColorScheme = lightColors(
     onPrimary = WhiteSmoke,
     onSecondary = WhiteSmoke,
     onBackground = WhiteSmoke,
-    onSurface = SatinBlue,
-
-    )
+    onSurface = SatinBlue
+)
 
 @Composable
 fun StarlingBankAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val starlingColorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val starlingColorScheme = if (darkTheme) darkColorScheme else lightColorScheme
 
     MaterialTheme(
         colors = starlingColorScheme,

@@ -3,10 +3,9 @@ package com.challenge.common
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.utils.CurrencyUnitsMapper
 import com.challenge.common.utils.MainCoroutineRule
-import com.challenge.model.Amount
-import com.challenge.model.SavingGoalsStatus
-import com.challenge.model.SavingsGoal
-import com.challenge.model.Transaction
+import com.challenge.common.model.Amount
+import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
+import com.challenge.common.model.transactiondomain.TransactionDomain
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -35,13 +34,13 @@ class CurrencyUnitsMapperTest {
     fun `Convert minor units to major units`() {
         // Transactions list in minor units test data
         val amount = Amount("GBP", 1234L, 0.0)
-        val transaction = Transaction("FeedItemUid", "CategoryUid", amount, amount, "IN")
-        val transactionList = listOf(transaction)
+        val transactionDomain = TransactionDomain("FeedItemUid", "CategoryUid", amount, amount, "IN")
+        val transactionList = listOf(transactionDomain)
 
         // Transactions list in major units computed
         val amount2 = Amount("GBP", 1234L, 12.34)
-        val transaction2 = Transaction("FeedItemUid", "CategoryUid", amount2, amount2, "IN")
-        val transactionList2 = listOf(transaction2)
+        val transactionDomain2 = TransactionDomain("FeedItemUid", "CategoryUid", amount2, amount2, "IN")
+        val transactionList2 = listOf(transactionDomain2)
 
        assertEquals(transactionList2, sut.convertMinorUnitToMajorUnit(transactionList))
     }
@@ -51,13 +50,11 @@ class CurrencyUnitsMapperTest {
         // Saving Goals test data
         val targetAmount = Amount("GBP", 1234L, 0.0)
         val totalSaved = Amount("GBP", 1234L, 0.0)
-        val savingGoal = SavingsGoal(
+        val savingGoal = SavingsGoalDomain(
             "savingsGoalUid",
             "TRip to france",
             targetAmount,
-            totalSaved,
-            2,
-            SavingGoalsStatus.ACTIVE
+            totalSaved
         )
         val savingGoals = listOf(savingGoal)
 
@@ -65,13 +62,11 @@ class CurrencyUnitsMapperTest {
         // Saving Goals test data
         val expectedTargetAmount = Amount("GBP", 1234L, 12.34)
         val expectedTotalSaved = Amount("GBP", 1234L, 12.34)
-        val expectedSavingGoal = SavingsGoal(
+        val expectedSavingGoal = SavingsGoalDomain(
             "savingsGoalUid",
             "TRip to france",
             expectedTargetAmount,
-            expectedTotalSaved,
-            2,
-            SavingGoalsStatus.ACTIVE
+            expectedTotalSaved
         )
         val expectedSavingGoals = listOf(expectedSavingGoal)
 
@@ -103,15 +98,15 @@ class CurrencyUnitsMapperTest {
     fun `sum up fractional part of major unit`() {
         // Transactions list in minor units test data
         val amount = Amount("GBP", 1234L, 12.34)
-        val transaction = Transaction("FeedItemUid", "CategoryUid", amount, amount, "IN")
+        val transactionDomain = TransactionDomain("FeedItemUid", "CategoryUid", amount, amount, "IN")
 
 
         // Transactions list in major units computed
         val amount2 = Amount("GBP", 1234L, 12.34)
-        val transaction2 = Transaction("FeedItemUid", "CategoryUid", amount2, amount2, "IN")
+        val transactionDomain2 = TransactionDomain("FeedItemUid", "CategoryUid", amount2, amount2, "IN")
 
 
-        val list = listOf(transaction,transaction2)
+        val list = listOf(transactionDomain,transactionDomain2)
 
         assertEquals(0.68, sut.sumUpFractionPartMajorUnit(list),0.0)
     }

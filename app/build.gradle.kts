@@ -35,7 +35,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -60,11 +60,14 @@ android {
 
 dependencies {
 
+    implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
     implementation(project(":feature:home"))
     implementation(project(":feature:savingsgoals"))
     implementation(project(":core:common"))
+    implementation(project(":domain:repositorycontract"))
 
+    implementation(libs.androidx.activity.compose)
     // Hilt
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
@@ -72,7 +75,7 @@ dependencies {
     // Constraint layout
     implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.bundles.activity.fragment.material.bundle)
+    implementation(libs.bundles.activity.material.bundle)
     implementation(libs.bundles.compose.bundle)
     implementation(libs.bundles.navigation.bundle)
 

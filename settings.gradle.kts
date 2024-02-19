@@ -17,10 +17,10 @@ dependencyResolutionManagement {
 rootProject.name = "Starling Bank App"
 include(":app")
 include(":core")
-include(":core:domain")
 include(":core:data")
 include(":core:designsystem")
 include("feature")
 include(":feature:home")
 include(":core:common")
 include(":feature:savingsgoals")
+include(":domain:repositorycontract")

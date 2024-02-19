@@ -6,4 +6,5 @@
     <string name="direction">Direction</string>
     <string name="round_up_and_add_to_saving_goals">Round up and add to saving goals</string>
     <string name="round_up">Round Up</string>
+    <string name="no_transactions_found">No Transactions found</string>
 </resources>

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     kotlin("kapt")
+    alias(libs.plugins.kotlin.parcelize)
 
 }
 
@@ -24,7 +25,7 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -49,13 +50,13 @@ android {
 
 dependencies {
 
-    implementation(project(":core:data"))
     // Hilt
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
-    // Activity-Fragment-Material-compose material bundle
-    implementation(libs.bundles.activity.fragment.material.bundle)
+    implementation(libs.bundles.gson)
+    // Activity-Material-compose material bundle
+    implementation(libs.bundles.activity.material.bundle)
     // compose bundle
     implementation(libs.bundles.compose.bundle)
     // Jetpack Navigation Bundle

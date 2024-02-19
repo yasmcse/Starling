@@ -69,6 +69,8 @@ android {
 
 dependencies {
 
+    implementation(project(":domain:repositorycontract"))
+    implementation(project(":core:common"))
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.bundles.retrofit.bundle)

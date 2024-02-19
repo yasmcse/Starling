@@ -17,7 +17,6 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.com.android.library) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
-//    id("androidx.navigation.safeargs.kotlin") version("2.5.3") apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block
 

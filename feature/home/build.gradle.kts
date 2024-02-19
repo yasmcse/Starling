@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -28,7 +28,7 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -59,15 +59,14 @@ dependencies {
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
+    implementation(project(":domain:repositorycontract"))
 
     // Hilt
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
-    // Activity-Fragment-Material-compose material bundle
-    implementation(libs.bundles.activity.fragment.material.bundle)
+    // Activity-Material-compose material bundle
+    implementation(libs.bundles.activity.material.bundle)
     // compose bundle
     implementation(libs.bundles.compose.bundle)
     // Jetpack Navigation Bundle

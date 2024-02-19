@@ -49,7 +49,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core:data"))
+    implementation(project(":core:common"))
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)

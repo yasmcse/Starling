@@ -1,39 +1,30 @@
 package com.challenge.savingsgoals
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.challenge.common.Error
+import com.challenge.common.ErrorResponse
 import com.challenge.common.utils.CurrencyUnitsMapper
 import com.challenge.common.utils.MainCoroutineRule
-import com.challenge.di.NetworkResult
-import com.challenge.model.Amount
-import com.challenge.model.SavingAmount
-import com.challenge.model.SavingGoalAmount
-import com.challenge.model.SavingGoalTransferResponse
-import com.challenge.model.SavingGoalsStatus
-import com.challenge.model.SavingsGoal
-import com.challenge.model.SavingsGoals
-import com.challenge.model.TransferResponse
-import com.challenge.repository.UserAccountRepository
-import com.challenge.repository.savinggoals.SavingGoalsRepository
+import com.challenge.common.NetworkResult
+import com.challenge.common.UserAccountRepository
+import com.challenge.common.model.Amount
+import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
+import com.challenge.common.model.savinggoaldomain.SavingsGoalsDomain
+import com.challenge.repositorycontract.SavingsGoalsRepository
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
-import com.nhaarman.mockitokotlin2.given
-import com.nhaarman.mockitokotlin2.times
+import com.challenge.ui.SavingGoalsViewModel
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
-import org.hamcrest.core.Every
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.Mockito.mock
-import java.util.UUID
 
 
 @RunWith(JUnit4::class)
@@ -46,35 +37,35 @@ class SavingGoalsViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val mockSavingGoalRepository = mockk<SavingGoalsRepository>(relaxed = true)
-    private val userAccount = UserAccountRepository()
+    private val mockSavingGoalRepository = mockk<SavingsGoalsRepository>(relaxed = true)
+    private val mockUserAccountRepository = mockk<UserAccountRepository>(relaxed = true)
     private val mockCurrencyUnitsMapper = mockk<CurrencyUnitsMapper>(relaxed = true)
     private val mockCurrencyAndAmountMapper = mockk<CurrencyAndAmountMapper>(relaxed = true)
 
-    lateinit var sut: SavingGoalsViewModel
+    private lateinit var sut: SavingGoalsViewModel
 
     @Before
     fun setUp() {
         sut = SavingGoalsViewModel(
             mockSavingGoalRepository,
-            userAccount,
+            mockUserAccountRepository,
             mockCurrencyUnitsMapper,
             mockCurrencyAndAmountMapper
         )
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `Given fetchSavingsGoals is called then returns the list of saving goals`() {
-
+    fun `Given fetchSavingsGoals is called then returns the list of saving goals`() =
         runTest {
             // Account repository test data
-
-            with(userAccount) {
+            val accountRepository = UserAccountRepository()
+            with(accountRepository) {
                 setAccountId("accountUid")
                 setCategoryUid("defaultCategory")
             }
             // Saving goal test data
-            val savingsGoal = SavingsGoal(
+            val savingsGoalDomain = SavingsGoalDomain(
                 "savingsGoalsUid",
                 "name",
                 Amount(
@@ -86,13 +77,11 @@ class SavingGoalsViewModelTest {
                     "GBP",
                     1234,
                     0.0
-                ),
-                2,
-                SavingGoalsStatus.ACTIVE
+                )
             )
 
-            val savings = SavingsGoals(listOf(savingsGoal))
-            val networkResultSavingGoals: NetworkResult<SavingsGoals> =
+            val savings = SavingsGoalsDomain(listOf(savingsGoalDomain))
+            val networkResultSavingGoals: NetworkResult<SavingsGoalsDomain> =
                 NetworkResult.Success(savings)
 
 
@@ -100,39 +89,65 @@ class SavingGoalsViewModelTest {
                 emit(networkResultSavingGoals)
             }
 
-            coEvery { mockSavingGoalRepository.getAllSavingGoals(userAccount.getAccountUid()!!) } returns flowSavingGoals
+            every { mockUserAccountRepository.getAccountUid() } returns accountRepository.getAccountUid()
+            every { mockUserAccountRepository.getCategoryUid() } returns accountRepository.getCategoryUid()
+            coEvery { mockSavingGoalRepository.getAllSavingGoals(accountRepository.getAccountUid()!!) } returns flowSavingGoals
 
-            var response: SavingsGoals? = null
+            var expectedResponse: SavingsGoalsDomain? = null
             flowSavingGoals.collect {
-                response = it.data
+                expectedResponse = it.data
             }
 
+            sut.fetchSavingsGoals()
+            assertEquals(expectedResponse?.list, sut.savingsGoalsList.value.data?.list)
+        }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `Given fetchSavingsGoals is called then returns error`() =
+        runTest {
+            // Account repository test data
+            val accountRepository = UserAccountRepository()
+            with(accountRepository) {
+                setAccountId("accountUid")
+                setCategoryUid("defaultCategory")
+            }
+            // Saving goal test data
+
+            val networkResultSavingGoals: NetworkResult<SavingsGoalsDomain> =
+                NetworkResult.Error(ErrorResponse(listOf(Error("Api failed")),false))
+
+            val flowSavingGoals = flow {
+                emit(networkResultSavingGoals)
+            }
+
+            every { mockUserAccountRepository.getAccountUid() } returns accountRepository.getAccountUid()
+            every { mockUserAccountRepository.getCategoryUid() } returns accountRepository.getCategoryUid()
+            coEvery { mockSavingGoalRepository.getAllSavingGoals(accountRepository.getAccountUid()!!) } returns flowSavingGoals
+
+            var expectedResponse: SavingsGoalsDomain? = null
+            flowSavingGoals.collect {
+                expectedResponse = it.data
+            }
 
             sut.fetchSavingsGoals()
-
-            assertEquals(response?.savingsGoals, sut.savingsGoalsList.value.data?.savingsGoals)
+            assertEquals(expectedResponse?.list, sut.savingsGoalsList.value.data?.list)
         }
-    }
-
-
-
     @Test
     fun `Given a list of saving goals is passed to getCurrencyInReadable returns the list of goals in majorUnits`() {
-        val savingsGoals = SavingsGoal(
+        val savingsGoalsDomain = SavingsGoalDomain(
             "savingsGoalUid", "name",
-            Amount("GBP", 1234, 0.0), Amount("GBP", 1234, 0.0), 2, SavingGoalsStatus.ACTIVE
+            Amount("GBP", 1234, 0.0), Amount("GBP", 1234, 0.0)
         )
-        val savingsGoalsWithMajorUnitsConverted = SavingsGoal(
+        val savingsGoalsWithMajorUnitsConvertedDomain = SavingsGoalDomain(
             "savingsGoalUid", "name",
-            Amount("GBP", 1234, 12.34), Amount("GBP", 1234, 12.34), 2, SavingGoalsStatus.ACTIVE
+            Amount("GBP", 1234, 12.34), Amount("GBP", 1234, 12.34)
         )
 
-        val savingsGoal = listOf(savingsGoals)
-        val convertedListSavingGoals = listOf(savingsGoalsWithMajorUnitsConverted)
+        val savingsGoal = listOf(savingsGoalsDomain)
+        val convertedListSavingGoals = listOf(savingsGoalsWithMajorUnitsConvertedDomain)
 
         every { mockCurrencyUnitsMapper.convertSavingGoalUnits(savingsGoal) } returns convertedListSavingGoals
-
-
         assertEquals(convertedListSavingGoals, sut.getCurrencyInReadable(savingsGoal))
     }
 }
