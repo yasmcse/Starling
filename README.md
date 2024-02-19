@@ -1,13 +1,12 @@
-# Starling Coding challenge
+#
 Developer name: Yasir Nazir
 
 Tech Stack Use </br>
 
 * Gradle Build with version catalogue using .toml file </br>
 * Multi module gradle app with feature gradle modules </br>
-* Jetpack Navigation Component to navigate between fragments in feature modules </br>
-* Jetpack Compose with fragments </br>
-* Coroutines and Kotlin Flow for a sychronous api calls.
+* Jetpack Navigation Compose to navigate between composables in feature modules using </br>
+* Coroutines and Kotlin Flow for asychronous api calls.
 * Implementation of clean architecture and its layers. </br>
 * Unit testing using JUnit, mockk and kotlin mockito. </br>
 
