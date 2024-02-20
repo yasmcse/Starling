@@ -34,9 +34,11 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -217,7 +219,8 @@ fun BottomNav(selectedScreens: Screens, onClick: (Screens) -> Unit) {
 fun getBottomBarIcon(screens: Screens): ImageVector =
     when (screens.value) {
         stringResource(id = R.string.home) -> Icons.Filled.Home
-        stringResource(id = R.string.saving_goals) -> Icons.Filled.Add
+        stringResource(id = R.string.saving_goals) -> Icons.Default.Star
+        stringResource(id = R.string.add_new_goal) -> Icons.Filled.Add
         else -> Icons.Filled.Home
     }
 
