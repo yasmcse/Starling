@@ -203,7 +203,7 @@ fun BottomNav(selectedScreens: Screens, onClick: (Screens) -> Unit) {
                         contentDescription = stringResource(id = R.string.bottom_bar_icon)
                     )
                 },
-                label = { Text(text = screen.value) },
+                label = { Text(text = screen.value, color = Color.White) },
                 selected = screen == selectedScreens,
                 onClick = {
                     onClick(screen)
