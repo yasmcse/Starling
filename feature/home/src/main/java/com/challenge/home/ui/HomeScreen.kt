@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -100,6 +101,7 @@ fun HomeScreen(
 
 @Composable
 fun TransactionsList(model: List<TransactionDomain>) {
+    val lazyListState = rememberLazyListState()
     Column(
         modifier = Modifier
             .background(color = WhiteSmoke)
@@ -132,7 +134,8 @@ fun TransactionsList(model: List<TransactionDomain>) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                state = lazyListState
             ) {
                 items(count = model.size, itemContent = { index ->
                     TransactionRow(item = model[index])

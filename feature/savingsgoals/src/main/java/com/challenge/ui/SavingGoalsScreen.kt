@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
@@ -46,7 +47,6 @@ import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
 import com.challenge.common.model.savinggoaldomain.SavingsGoalsDomain
 import com.challenge.common.utils.NetworkStatus
 import com.challenge.savingsgoals.R
-import kotlinx.coroutines.launch
 
 
 @SuppressLint("VisibleForTests")
@@ -124,7 +124,7 @@ fun SavingsGoalsList(
     val savingGoalPosted by viewModel.savingGoalPosted.collectAsStateWithLifecycle()
     var selectedIndex by remember { mutableIntStateOf(0) }
     var selectedGoal: SavingsGoalDomain? by remember { mutableStateOf(null) }
-
+    val lazyListState = rememberLazyListState()
     Column(
         modifier = Modifier
             .background(color = WhiteSmoke)
@@ -146,7 +146,8 @@ fun SavingsGoalsList(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                state = lazyListState
             ) {
                 items(count = model.size, itemContent = { index ->
                     GoalRow(item = model[index]) { savingsGoal ->
