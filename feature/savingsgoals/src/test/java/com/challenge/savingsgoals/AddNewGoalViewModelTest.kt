@@ -68,4 +68,32 @@ class AddNewGoalViewModelTest {
             assertEquals("true", sut.newGoal.value.data?.success)
         }
     }
+
+    @Test
+    fun `Given when postSavingGoal is called returns error`() {
+
+        runTest {
+            val newSavingGoal = NewSavingGoal("France", "GBP", SavingTarget("GBP", 1234), null)
+            val newSavingGoalResponseDomain = NewSavingGoalResponseDomain("savingsGoalUid", "true")
+
+            coEvery { mockNewSavingGoalMapper.map("France", "GBP", 1234) } returns newSavingGoal
+
+            val networkResult: NetworkResult<NewSavingGoalResponseDomain> =
+                NetworkResult.Error(401,"Token Expired")
+
+            val createNewFlow = flow {
+                emit(networkResult)
+            }
+
+            var expectedResponse:NewSavingGoalResponseDomain? = null
+            createNewFlow.collect{
+                expectedResponse = it.data
+            }
+            coEvery { mockCreateNewSavingGoalUseCase.createNewSavingGoal(newSavingGoal) } returns createNewFlow
+
+            sut.postNewSavingGoal("France","GBP",1234)
+
+            assertEquals(expectedResponse, sut.newGoal.value.data)
+        }
+    }
 }
