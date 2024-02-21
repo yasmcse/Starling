@@ -22,10 +22,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +46,7 @@ import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
 import com.challenge.common.model.savinggoaldomain.SavingsGoalsDomain
 import com.challenge.common.utils.NetworkStatus
 import com.challenge.savingsgoals.R
+import kotlinx.coroutines.launch
 
 
 @SuppressLint("VisibleForTests")
@@ -55,6 +58,7 @@ fun SavingGoalsScreen(
     roundUpSum: Long?
 ) {
     val localContext = LocalContext.current
+
     when {
         networkStatus.hasNetworkAccess(localContext) -> {
             when (savingGoalsState) {
@@ -79,11 +83,20 @@ fun SavingGoalsScreen(
                 }
 
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        localContext,
-                        com.challenge.common.R.string.something_went_wrong,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        savingGoalsState.message?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.subtitle1,
+                                color = MaterialTheme.colors.error,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -174,12 +187,6 @@ fun SavingsGoalsList(
                             isSavingGoalPosted = true
                         }
                     )
-                } else {
-                    Toast.makeText(
-                        localContext,
-                        stringResource(com.challenge.common.R.string.transactions_empty_can_t_round_up),
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             }
         }
@@ -207,11 +214,20 @@ fun SavingsGoalsList(
                     }
 
                     is NetworkResult.Error -> {
-                        Toast.makeText(
-                            localContext,
-                            savingGoalPosted.errorResponse?.errors?.get(0)?.message,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            savingGoalPosted.message?.let {
+                                Text(
+                                    text = it,
+                                    style = MaterialTheme.typography.subtitle1,
+                                    color = MaterialTheme.colors.error,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
                     }
 
                     else -> {}

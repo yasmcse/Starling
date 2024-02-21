@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,15 +41,15 @@ import com.challenge.home.R.string
 @SuppressLint("VisibleForTests")
 @Composable
 fun HomeScreen(
-    transactionsDtoState: NetworkResult<TransactionsDomain>,
+    transactionsState: NetworkResult<TransactionsDomain>,
     viewModel: HomeViewModel,
     networkStatus: NetworkStatus,
-    roundUpSum: (Long) -> Unit
+    roundUpSum: (Long) -> Unit,
 ) {
     val localContext = LocalContext.current
     when {
         networkStatus.hasNetworkAccess(localContext) -> {
-            when (transactionsDtoState) {
+            when (transactionsState) {
                 is NetworkResult.Loading ->
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -59,21 +60,35 @@ fun HomeScreen(
                     }
 
                 is NetworkResult.Success -> {
-                    transactionsDtoState.data?.feedItems?.let {
-                        TransactionsList(model = viewModel.getCurrencyInReadable(it))
-                        viewModel.getSumOfMinorUnits()?.let { it1 -> roundUpSum(it1) }
+                    transactionsState.data?.feedItems.let { transactionsList ->
+                        transactionsList?.let { it1 ->
+                            viewModel.getCurrencyInReadable(
+                                it1
+                            )
+                        }?.let { it2 -> TransactionsList(model = it2) }
+                        viewModel.getSumOfMinorUnits()?.let { roundUpSum(it) }
                     }
                 }
 
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        localContext,
-                        transactionsDtoState.errorResponse?.errors?.get(0)?.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        transactionsState.message?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.subtitle1,
+                                color = MaterialTheme.colors.error,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
                 }
             }
         }
+
         else -> {
             Toast.makeText(
                 localContext,

@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import com.challenge.common.enums.Screens
@@ -35,10 +36,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun AppScaffold(networkStatus: NetworkStatus) {
     val navController = rememberNavController()
-    val scaffoldState = rememberScaffoldState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     var selectedScreen by remember { mutableStateOf(Screens.HOME) }
+    var snackState by remember { mutableStateOf("") }
     var roundUpSum = 0L
 
     ModalDrawer(
@@ -54,9 +55,11 @@ fun AppScaffold(networkStatus: NetworkStatus) {
                             Screens.HOME -> {
                                 navController.navigateToHomeScreen()
                             }
+
                             Screens.SAVING_GOALS -> {
                                 navController.navigateToSavingGoalsScreen(roundUpSum)
                             }
+
                             Screens.ADD_NEW_GOAL -> {
                                 navController.navigateToAddNewGoalScreen()
                             }
@@ -68,7 +71,6 @@ fun AppScaffold(networkStatus: NetworkStatus) {
     )
     {
         Scaffold(
-            scaffoldState = scaffoldState,
             topBar = {
                 TopBar(
                     onBackPresses = {
@@ -90,9 +92,11 @@ fun AppScaffold(networkStatus: NetworkStatus) {
                         Screens.HOME -> {
                             navController.navigateToHomeScreen()
                         }
+
                         Screens.SAVING_GOALS -> {
                             navController.navigateToSavingGoalsScreen(roundUpSum)
                         }
+
                         Screens.ADD_NEW_GOAL -> {
                             navController.navigateToAddNewGoalScreen()
                         }
@@ -120,10 +124,12 @@ fun AppScaffold(networkStatus: NetworkStatus) {
         ) { _ ->
             NavigationHost(
                 navController = navController,
-                networkStatus = networkStatus
-            ) { sum ->
+                networkStatus = networkStatus,
+            )
+            { sum ->
                 roundUpSum = sum
             }
         }
     }
 }
+

@@ -23,9 +23,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -47,7 +47,6 @@ import com.challenge.savingsgoals.R
 
 
 @SuppressLint("VisibleForTests")
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddNewGoalScreen(
     newGoalModelState: NetworkResult<NewSavingGoalResponseDomain>,
@@ -225,11 +224,15 @@ fun AddNewGoalScreen(
                     }
 
                     is NetworkResult.Error -> {
-                        Toast.makeText(
-                            localContext,
-                            newGoalModelState.errorResponse?.errors?.get(0)?.message,
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Toast.makeText(
+                                localContext,newGoalModelState.message, Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }

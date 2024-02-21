@@ -1,8 +1,6 @@
 package com.challenge.savingsgoals
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.common.Error
-import com.challenge.common.ErrorResponse
 import com.challenge.common.utils.CurrencyUnitsMapper
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.NetworkResult
@@ -54,7 +52,6 @@ class SavingGoalsViewModelTest {
         )
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `Given fetchSavingsGoals is called then returns the list of saving goals`() =
         runTest {
@@ -102,7 +99,6 @@ class SavingGoalsViewModelTest {
             assertEquals(expectedResponse?.list, sut.savingsGoalsList.value.data?.list)
         }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `Given fetchSavingsGoals is called then returns error`() =
         runTest {
@@ -115,7 +111,7 @@ class SavingGoalsViewModelTest {
             // Saving goal test data
 
             val networkResultSavingGoals: NetworkResult<SavingsGoalsDomain> =
-                NetworkResult.Error(ErrorResponse(listOf(Error("Api failed")),false))
+                NetworkResult.Error(401, "Token expired")
 
             val flowSavingGoals = flow {
                 emit(networkResultSavingGoals)

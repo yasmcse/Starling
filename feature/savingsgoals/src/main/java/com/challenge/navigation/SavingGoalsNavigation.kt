@@ -13,7 +13,9 @@ import com.challenge.common.utils.NetworkStatus
 import com.challenge.ui.SavingGoalsViewModel
 import com.challenge.ui.SavingGoalsScreen
 
-fun NavGraphBuilder.savingGoalsScreen(networkStatus: NetworkStatus) {
+fun NavGraphBuilder.savingGoalsScreen(
+    networkStatus: NetworkStatus
+) {
     composable(
         Screens.SAVING_GOALS.name + "/{roundUpSum}"
     ) { navBackStack ->
@@ -25,7 +27,9 @@ fun NavGraphBuilder.savingGoalsScreen(networkStatus: NetworkStatus) {
         LaunchedEffect(key1 = "key1") {
             viewModel.fetchSavingsGoals()
         }
-        SavingGoalsScreen(savingsGoalsState, viewModel, networkStatus, roundUpSum?.toLong())
+        SavingGoalsScreen(
+            savingsGoalsState, viewModel, networkStatus, roundUpSum?.toLong()
+        )
     }
 }
 

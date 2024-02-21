@@ -24,14 +24,14 @@ class SavingGoalsRepositoryImpl @Inject constructor(
 ) : SavingsGoalsRepository, ApiResponse() {
     override suspend fun getAllSavingGoals(accountUid: String): Flow<NetworkResult<SavingsGoalsDomain>> =
         flow {
-            emit(safeApiCall {
+            emit(handleApiCall {
                 apiService.getSavingGoals(accountUid)
             })
         }.map {
             when (it) {
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toSavingsGoalsDomain())
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.errorResponse)
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
             }
         }.flowOn(dispatcherProvider.io)
 
@@ -39,14 +39,14 @@ class SavingGoalsRepositoryImpl @Inject constructor(
         userAccountId: String, goalUid: String, transferUid: String, savingAmount: SavingAmount
     ): Flow<NetworkResult<TransferDomain>> =
         flow {
-            emit(safeApiCall {
+            emit(handleApiCall {
                 apiService.addMoneyIntoSavingGoal(userAccountId, goalUid, transferUid, savingAmount)
             })
         }.map {
             when (it) {
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toSavingGoalTransferDomain())
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.errorResponse)
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
             }
         }.flowOn(dispatcherProvider.io)
 
@@ -56,7 +56,7 @@ class SavingGoalsRepositoryImpl @Inject constructor(
     ): Flow<NetworkResult<NewSavingGoalResponseDomain>> =
         flow {
             emit(
-                safeApiCall {
+                handleApiCall {
                     userAccountId
                         ?.let { apiService.createNewSavingGoal(it, newSavingGoal) }!!
                 }
@@ -65,7 +65,7 @@ class SavingGoalsRepositoryImpl @Inject constructor(
             when (it) {
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toNewSavingGoalResponseDomain())
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.errorResponse)
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
             }
         }.flowOn(Dispatchers.IO)
 }

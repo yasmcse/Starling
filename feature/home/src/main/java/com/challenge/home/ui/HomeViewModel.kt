@@ -55,6 +55,9 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                 }
+                else -> {
+                    _transactionsList.value = NetworkResult.Error(userAccounts.code,userAccounts.message)
+                }
             }
         }
     }

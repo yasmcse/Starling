@@ -9,7 +9,8 @@ data class ErrorResponse(
 )
 
 data class Error(
-    val message: String
+    val error:Int,
+    val description: String
 )
 
 fun getErrorResponse(response:String): ErrorResponse {

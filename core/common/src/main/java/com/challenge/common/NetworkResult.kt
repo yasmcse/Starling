@@ -1,11 +1,7 @@
 package com.challenge.common
 
-sealed class NetworkResult<T>(
-    val data: T? = null,
-    val message: String? = null,
-    val errorResponse: ErrorResponse? = null
-) {
-    class Success<T>(data: T?) : NetworkResult<T>(data)
-    class Error<T>(errorResponse: ErrorResponse?) : NetworkResult<T>(null, null,errorResponse)
-    class Loading<T>() : NetworkResult<T>()
+sealed class NetworkResult<T>(val data: T? = null, val code: Int?,val message: String?) {
+    class Success<T>(data: T?) : NetworkResult<T>(data,null,null)
+    class Error<T>(code: Int?, message: String?) : NetworkResult<T>(null,code, message)
+    class Loading<T> : NetworkResult<T>(null,null,null)
 }

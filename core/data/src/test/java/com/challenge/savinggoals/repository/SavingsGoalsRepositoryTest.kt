@@ -60,7 +60,6 @@ class SavingsGoalsRepositoryTest {
         )
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getAllSavingsGoals, returns savings goals successfully`() =
         runTest {
@@ -109,7 +108,6 @@ class SavingsGoalsRepositoryTest {
             assertEquals(expectedGoalsResponse?.data?.list, sutAccountsResponse?.data?.list)
         }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `addMoneyIntoSavingGoal, returns successful`() =
         runTest {
@@ -149,7 +147,6 @@ class SavingsGoalsRepositoryTest {
             assertEquals(true, sutAddMoneyResponse?.data?.success)
         }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `createNewSavingGoal, returns successful`() =
         runTest {

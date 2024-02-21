@@ -13,7 +13,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class CurrencyAndAmountMapperTest {
 
-    lateinit var sut:CurrencyAndAmountMapper
+   private lateinit var sut:CurrencyAndAmountMapper
 
     @Before
     fun setUp(){

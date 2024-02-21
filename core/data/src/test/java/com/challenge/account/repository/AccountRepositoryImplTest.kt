@@ -47,7 +47,6 @@ class AccountRepositoryImplTest {
     }
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getAccounts, returns accounts successfully`() =
         runTest {

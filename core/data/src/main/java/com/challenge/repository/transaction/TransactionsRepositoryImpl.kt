@@ -22,7 +22,7 @@ class TransactionsRepositoryImpl @Inject constructor(
         userAccount: UserAccount
     ): Flow<NetworkResult<TransactionsDomain>> =
         flow {
-            emit(safeApiCall {
+            emit(handleApiCall {
                 apiService.getTransactionsBetween(
                     userAccount.accountUid,
                     userAccount.categoryUid,
@@ -34,7 +34,7 @@ class TransactionsRepositoryImpl @Inject constructor(
             when (it) {
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toTransactionsDomain())
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.errorResponse)
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
             }
         }.flowOn(dispatcherProvider.io)
 }

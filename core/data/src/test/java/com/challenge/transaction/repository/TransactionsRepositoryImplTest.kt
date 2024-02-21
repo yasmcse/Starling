@@ -49,7 +49,6 @@ class TransactionsRepositoryImplTest {
         )
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `getTransactionsBetween, returns succesful`() =
         runTest {

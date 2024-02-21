@@ -19,13 +19,13 @@ class AccountRepositoryImpl @Inject constructor(
     AccountRepository, ApiResponse() {
     override suspend fun getAccounts(): Flow<NetworkResult<AccountsDomain>> =
         flow {
-            emit(safeApiCall { apiService.getUserAccounts() })
+            emit(handleApiCall { apiService.getUserAccounts() })
         }.map {
             when (it) {
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toAccountsDomain()
-                    ?.let { it1 -> AccountsDomain(it1) })
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.errorResponse)
+                    .let { it1 -> it1?.let { it2 -> AccountsDomain(it2) } })
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
             }
         }.flowOn(dispatcherProvider.io)
 }

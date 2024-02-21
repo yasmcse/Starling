@@ -1,8 +1,6 @@
 package com.challenge.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.common.Error
-import com.challenge.common.ErrorResponse
 import com.challenge.common.utils.CurrencyUnitsMapper
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.utils.TestDispatcherProvider
@@ -199,7 +197,7 @@ class HomeScreenViewModelTest {
             coEvery { mockAccountRepository.getAccounts() } returns flowAccounts
 
             val networkResultTransactionsDomain: NetworkResult<TransactionsDomain> =
-                NetworkResult.Error(ErrorResponse(listOf(Error("Api failed")),false))
+                NetworkResult.Error(401,"Token Expired")
 
             val flowTransactions = flow {
                 emit(networkResultTransactionsDomain)
@@ -224,7 +222,7 @@ class HomeScreenViewModelTest {
         runTest {
 
             val networkResultAccountsDomain: NetworkResult<AccountsDomain> =
-                NetworkResult.Error(ErrorResponse(listOf(Error("Api failed")),false))
+                NetworkResult.Error(401, "Token expired")
 
             // Accounts flow
 

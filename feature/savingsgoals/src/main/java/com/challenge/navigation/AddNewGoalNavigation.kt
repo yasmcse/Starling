@@ -19,7 +19,8 @@ fun NavGraphBuilder.addNewGoal(
     composable(Screens.ADD_NEW_GOAL.name) {
         val viewModel: AddNewGoalViewModel = hiltViewModel()
         val newGoalModelState by viewModel.newGoal.collectAsStateWithLifecycle()
-        AddNewGoalScreen(newGoalModelState, viewModel, networkStatus) { newGoalCreated ->
+        AddNewGoalScreen(newGoalModelState, viewModel, networkStatus
+        ) { newGoalCreated ->
             if (newGoalCreated) {
                 navController.navigateUp()
             }
