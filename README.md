@@ -14,7 +14,7 @@ https://developer.starlingbank.com/docs#api-endpoint-urls-1
 
 Tech Stack Use </br>
 
-* Gradle Build with version catalogue using .toml file to keep the versions and dependencies at cenral location. </br>
+* Gradle Build with version catalogue using .toml file to keep the versions and dependencies at central location. </br>
 * Multi module gradle app with feature gradle modules. </br>
 * Jetpack Compose. </br>
 * Jetpack Navigation Compose to navigate between composables in feature modules. </br>
@@ -26,8 +26,6 @@ Notes:-
 
      * PLease see the docs and images folders in app to read about architectural decisions and images of running app
      * api access token is ignored to be published on git. resides in local.properties and provided through BuildConfig. 
-       The token is generated for 24 hours. The api don't privde the end point to get the refreshed token. 
-       If the token expires while you are testng the app, please ask the recruiter to contact me, so i can send over the new token after genearting from dash board.
-       Sending the token to recruiter in email. You will need to replace the ACCESS_TOKEN in local.properties.
+       The token is generated for 24 hours. Let me know if you want me to generate the token.
 
        
