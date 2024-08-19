@@ -86,7 +86,7 @@ class HomeViewModel @Inject constructor(
 
     // Change the dates as you like for testing purposes
     companion object {
-        const val minTransactionTimeStamp = "2024-02-16T09:34:56.000Z"
-        const val maxTransactionTimeStamp = "2024-02-19T20:22:56.000Z"
+        const val minTransactionTimeStamp = "2024-08-19T09:34:56.000Z"
+        const val maxTransactionTimeStamp = "2024-08-25T20:22:56.000Z"
     }
 }

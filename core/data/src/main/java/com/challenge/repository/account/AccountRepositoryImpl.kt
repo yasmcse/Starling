@@ -25,7 +25,8 @@ class AccountRepositoryImpl @Inject constructor(
                 is NetworkResult.Loading -> return@map NetworkResult.Loading()
                 is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toAccountsDomain()
                     .let { it1 -> it1?.let { it2 -> AccountsDomain(it2) } })
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.code,it.message)
+
+                is NetworkResult.Error -> return@map NetworkResult.Error(it.code, it.message)
             }
         }.flowOn(dispatcherProvider.io)
 }
