@@ -1,4 +1,4 @@
-package com.challenge.starlingbank.di
+package com.challenge.di
 
 import com.challenge.repository.account.AccountRepositoryImpl
 import com.challenge.repository.savinggoals.SavingGoalsRepositoryImpl
@@ -9,9 +9,9 @@ import com.challenge.repositorycontract.TransactionsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 @Module
 interface RepositoryModule {
     @Binds

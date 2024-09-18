@@ -6,25 +6,25 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.kotlin.parcelize)
     id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
+    val catalogs = extensions.getByType<VersionCatalogsExtension>()
+    val libs = catalogs.named("libs")
+
     namespace = "com.challenge.starlingbank"
-    compileSdk = 34
+    compileSdk = libs.findVersion("compileSdk").get().requiredVersion.toInt()
 
     defaultConfig {
-        applicationId = "com.challenge.starlingbank"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = libs.findVersion("applicationId").get().requiredVersion
+        minSdk = libs.findVersion("minSdk").get().requiredVersion.toInt()
+        targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
+        versionCode = libs.findVersion("appVersionCode").get().requiredVersion.toInt()
+        versionName = libs.findVersion("appVersionName").get().requiredVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        vectorDrawables.useSupportLibrary = true
     }
 
     packaging {
@@ -53,7 +53,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = libs.findVersion("kotlinCompilerExtVersion").get().requiredVersion
     }
 
 }
@@ -67,24 +67,11 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":domain:repositorycontract"))
 
-    implementation(libs.androidx.activity.compose)
     // Hilt
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
-    // Constraint layout
-    implementation(libs.androidx.constraintlayout)
-
     implementation(libs.bundles.activity.material.bundle)
     implementation(libs.bundles.compose.bundle)
     implementation(libs.bundles.navigation.bundle)
-
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
 }

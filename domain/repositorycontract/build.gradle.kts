@@ -5,12 +5,13 @@ plugins {
 }
 
 android {
+    val catalogs = extensions.getByType<VersionCatalogsExtension>()
+    val libs = catalogs.named("libs")
     namespace = "com.challenge.repositorycontract"
-    compileSdk = 34
+    compileSdk = libs.findVersion("compileSdk").get().requiredVersion.toInt()
 
     defaultConfig {
-        minSdk = 24
-
+        minSdk = libs.findVersion("minSdk").get().requiredVersion.toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -25,21 +26,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
+    implementation(project( ":core:common"))
     implementation(libs.material)
-    implementation(project(mapOf("path" to ":core:common")))
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

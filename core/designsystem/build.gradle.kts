@@ -5,12 +5,14 @@ plugins {
 }
 
 android {
+    val catalogs = extensions.getByType<VersionCatalogsExtension>()
+    val libs = catalogs.named("libs")
+
     namespace = "com.challenge.designsystem"
-    compileSdk = 33
+    compileSdk = libs.findVersion("compileSdk").get().requiredVersion.toInt()
 
     defaultConfig {
-        minSdk = 24
-
+        minSdk = libs.findVersion("minSdk").get().requiredVersion.toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -34,7 +36,7 @@ android {
         compose = true
     }
     composeOptions{
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = libs.findVersion("kotlinCompilerExtVersion").get().requiredVersion
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -48,14 +50,7 @@ android {
 dependencies {
 
     implementation(project(":core:common"))
-
-    implementation(libs.core.ktx)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.compose.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    // Activity-Material-compose material bundle
+    implementation(libs.bundles.activity.material.bundle)
+    implementation(libs.bundles.compose.bundle)
 }

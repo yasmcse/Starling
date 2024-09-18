@@ -1,12 +1,20 @@
 # Dependcy versions
 [versions]
+applicationId = "com.challenge.starlingbank"
+compileSdk = "34"
+minSdk = "24"
+targetSdk = "33"
+appVersionCode = "1"
+appVersionName = "1.0"
+kotlinCompilerExtVersion = "1.4.4"
+
 activityCompose = "1.8.2"
 agp = "8.1.1"
 org-jetbrains-kotlin-android = "1.8.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
+espresso-core = "3.5.0"
 lifecycle-runtime-ktx = "2.6.2"
 activity-ktx-version = "1.8.0"
 compose-runtime = "1.6.1"
