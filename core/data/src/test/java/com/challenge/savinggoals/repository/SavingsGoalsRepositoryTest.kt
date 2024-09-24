@@ -1,16 +1,15 @@
 package com.challenge.savinggoals.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.api.StarlingApiService
-import com.challenge.common.NetworkResult
+import com.challenge.common.model.NetworkResult
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.Amount
 import com.challenge.common.model.accountDto.AccountDto
-import com.challenge.common.model.newsavingdomain.NewSavingGoalResponseDomain
+import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
 import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.common.model.newsavingdto.NewSavingGoalResponseDto
-import com.challenge.common.model.savinggoaldomain.SavingsGoalsDomain
-import com.challenge.common.model.savinggoaldomain.TransferDomain
+import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
+import com.challenge.mapper.transaction.model.TransferDomain
 import com.challenge.common.model.savinggoaldto.SavingGoalTransferResponseDto
 import com.challenge.common.model.savinggoaldto.SavingGoalsStatus
 import com.challenge.common.model.savinggoaldto.SavingTarget
@@ -21,7 +20,7 @@ import com.challenge.common.model.savinggoals.SavingGoalAmount
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.utils.TestDispatcherProvider
 import com.challenge.repository.savinggoals.SavingGoalsRepositoryImpl
-import com.challenge.repository.savinggoals.toSavingsGoalsDomain
+import com.challenge.mapper.savinggoal.toSavingsGoalsDomain
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,7 +45,7 @@ class SavingsGoalsRepositoryTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val mockUserAccountRepository = mockk<UserAccountRepository>(relaxed = true)
-    private val mockStarlingApiService = mockk<StarlingApiService>(relaxed = true)
+    private val mockStarlingApiService = mockk<com.challenge.starlingbank.networklayer.api.StarlingApiService>(relaxed = true)
 
     private lateinit var testDispatcher: TestDispatcherProvider
     private lateinit var sut: SavingGoalsRepositoryImpl
@@ -55,8 +54,7 @@ class SavingsGoalsRepositoryTest {
     fun setUp() {
         testDispatcher = TestDispatcherProvider()
         sut = SavingGoalsRepositoryImpl(
-            mockStarlingApiService,
-            testDispatcher
+            mockStarlingApiService
         )
     }
 
@@ -102,7 +100,7 @@ class SavingsGoalsRepositoryTest {
 
             var sutAccountsResponse: NetworkResult<SavingsGoalsDomain>? = null
 
-            sut.getAllSavingGoals(accountDto.accountUid).collect {
+            sut.getAllSavingGoals(accountDto.accountUid).also {
                 sutAccountsResponse = it
             }
             assertEquals(expectedGoalsResponse?.data?.list, sutAccountsResponse?.data?.list)
@@ -139,7 +137,7 @@ class SavingsGoalsRepositoryTest {
 
             var sutAddMoneyResponse: NetworkResult<TransferDomain>? = null
             sut.addMoneyIntoSavingGoal(userAccountId!!, goalUid, transferUid, savingAmount)
-                .collect {
+                .also {
                     sutAddMoneyResponse = it
                 }
 
@@ -162,7 +160,7 @@ class SavingsGoalsRepositoryTest {
             coEvery { mockStarlingApiService.createNewSavingGoal(userAccountId,newSavingGoal) } returns response
 
             var sutNewSavingGoalResponse: NetworkResult<NewSavingGoalResponseDomain>? = null
-            sut.createNewSavingGoal(userAccountId, newSavingGoal).collect {
+            sut.createNewSavingGoal(userAccountId, newSavingGoal).also {
                 sutNewSavingGoalResponse = it
             }
 

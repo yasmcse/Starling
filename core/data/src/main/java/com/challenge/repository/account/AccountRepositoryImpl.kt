@@ -1,32 +1,18 @@
 package com.challenge.repository.account
 
-import com.challenge.api.StarlingApiService
-import com.challenge.common.NetworkResult
-import com.challenge.common.model.accountDomain.AccountsDomain
-import com.challenge.di.ApiResponse
-import com.challenge.common.utils.DispatcherProvider
+import com.challenge.common.model.NetworkResult
+import com.challenge.mapper.account.model.AccountsDomain
+import com.challenge.mapper.account.toAccountsDomain
 import com.challenge.repositorycontract.AccountRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
-    private val apiService: StarlingApiService,
-    private val dispatcherProvider: DispatcherProvider
-) :
-    AccountRepository, ApiResponse() {
-    override suspend fun getAccounts(): Flow<NetworkResult<AccountsDomain>> =
-        flow {
-            emit(handleApiCall { apiService.getUserAccounts() })
-        }.map {
-            when (it) {
-                is NetworkResult.Loading -> return@map NetworkResult.Loading()
-                is NetworkResult.Success -> return@map NetworkResult.Success(it.data?.toAccountsDomain()
-                    .let { it1 -> it1?.let { it2 -> AccountsDomain(it2) } })
+    private val apiService: com.challenge.starlingbank.networklayer.api.StarlingApiService
+) : AccountRepository, com.challenge.starlingbank.networklayer.model.ApiResponse() {
+    override suspend fun getAccounts(): NetworkResult<AccountsDomain> =
 
-                is NetworkResult.Error -> return@map NetworkResult.Error(it.code, it.message)
-            }
-        }.flowOn(dispatcherProvider.io)
+        handleApiCall(
+            apiCall = { apiService.getUserAccounts() },
+            mapToDomain = { AccountsDomain(it.toAccountsDomain()) }
+        )
 }

@@ -24,8 +24,8 @@ import com.challenge.designsystem.component.BottomNav
 import com.challenge.designsystem.component.Drawer
 import com.challenge.designsystem.component.TopBar
 import com.challenge.home.navigation.navigateToHomeScreen
-import com.challenge.navigation.navigateToAddNewGoalScreen
-import com.challenge.navigation.navigateToSavingGoalsScreen
+import com.challenge.savingsgoals.navigation.navigateToAddNewGoalScreen
+import com.challenge.savingsgoals.navigation.navigateToSavingGoalsScreen
 import com.challenge.savingsgoals.R.*
 import com.challenge.starlingbank.navigation.NavigationHost
 import kotlinx.coroutines.launch

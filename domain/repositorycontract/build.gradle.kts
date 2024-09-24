@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -37,4 +39,8 @@ android {
 dependencies {
     implementation(project( ":core:common"))
     implementation(libs.material)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    // Unit Test bundle
+    testImplementation(libs.bundles.unit.test.bundle)
 }

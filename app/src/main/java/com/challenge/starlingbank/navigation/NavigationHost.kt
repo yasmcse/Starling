@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import com.challenge.common.enums.Screens
 import com.challenge.common.utils.NetworkStatus
 import com.challenge.home.navigation.homeScreen
-import com.challenge.navigation.addNewGoal
-import com.challenge.navigation.savingGoalsScreen
+import com.challenge.savingsgoals.navigation.addNewGoal
+import com.challenge.savingsgoals.navigation.savingGoalsScreen
 
 @Composable
 fun NavigationHost(

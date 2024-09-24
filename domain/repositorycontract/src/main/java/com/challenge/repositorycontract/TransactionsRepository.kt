@@ -1,12 +1,11 @@
 package com.challenge.repositorycontract
 
-import com.challenge.common.NetworkResult
+import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.accountDto.UserAccount
-import com.challenge.common.model.transactiondomain.TransactionsDomain
-import kotlinx.coroutines.flow.Flow
+import com.challenge.mapper.transaction.model.TransactionsDomain
 
 interface TransactionsRepository {
     suspend fun getTransactionsBetween(
         userAccount: UserAccount
-    ): Flow<NetworkResult<TransactionsDomain>>
+    ): NetworkResult<TransactionsDomain>
 }

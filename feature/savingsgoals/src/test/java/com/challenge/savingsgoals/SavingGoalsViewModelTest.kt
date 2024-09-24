@@ -1,16 +1,16 @@
 package com.challenge.savingsgoals
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.common.utils.CurrencyUnitsMapper
+import com.challenge.util.CurrencyUnitsMapper
 import com.challenge.common.utils.MainCoroutineRule
-import com.challenge.common.NetworkResult
+import com.challenge.starlingbank.networklayer.model.NetworkResult
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.Amount
-import com.challenge.common.model.savinggoaldomain.SavingsGoalDomain
-import com.challenge.common.model.savinggoaldomain.SavingsGoalsDomain
+import com.challenge.mapper.savinggoal.model.SavingsGoalDomain
+import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
 import com.challenge.repositorycontract.SavingsGoalsRepository
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
-import com.challenge.ui.SavingGoalsViewModel
+import com.challenge.savingsgoals.presentation.SavingGoalsViewModel
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -78,8 +78,8 @@ class SavingGoalsViewModelTest {
             )
 
             val savings = SavingsGoalsDomain(listOf(savingsGoalDomain))
-            val networkResultSavingGoals: NetworkResult<SavingsGoalsDomain> =
-                NetworkResult.Success(savings)
+            val networkResultSavingGoals: com.challenge.starlingbank.networklayer.model.NetworkResult<SavingsGoalsDomain> =
+                com.challenge.starlingbank.networklayer.model.NetworkResult.Success(savings)
 
 
             val flowSavingGoals = flow {
@@ -110,8 +110,8 @@ class SavingGoalsViewModelTest {
             }
             // Saving goal test data
 
-            val networkResultSavingGoals: NetworkResult<SavingsGoalsDomain> =
-                NetworkResult.Error(401, "Token expired")
+            val networkResultSavingGoals: com.challenge.starlingbank.networklayer.model.NetworkResult<SavingsGoalsDomain> =
+                com.challenge.starlingbank.networklayer.model.NetworkResult.Error(401, "Token expired")
 
             val flowSavingGoals = flow {
                 emit(networkResultSavingGoals)

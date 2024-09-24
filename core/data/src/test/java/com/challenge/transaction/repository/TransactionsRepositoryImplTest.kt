@@ -1,17 +1,16 @@
 package com.challenge.transaction.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.api.StarlingApiService
-import com.challenge.common.NetworkResult
+import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.Amount
 import com.challenge.common.model.accountDto.UserAccount
-import com.challenge.common.model.transactiondomain.TransactionsDomain
+import com.challenge.mapper.transaction.model.TransactionsDomain
 import com.challenge.common.model.transactiondto.TransactionDto
 import com.challenge.common.model.transactiondto.TransactionsDto
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.utils.TestDispatcherProvider
 import com.challenge.repository.transaction.TransactionsRepositoryImpl
-import com.challenge.repository.transaction.toTransactionsDomain
+import com.challenge.mapper.transaction.toTransactionsDomain
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +33,7 @@ class TransactionsRepositoryImplTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val mockStarlingApiService = mockk<StarlingApiService>(relaxed = true)
+    private val mockStarlingApiService = mockk<com.challenge.starlingbank.networklayer.api.StarlingApiService>(relaxed = true)
 
     private lateinit var testDispatcher: TestDispatcherProvider
     private lateinit var sut: TransactionsRepositoryImpl
@@ -44,8 +43,7 @@ class TransactionsRepositoryImplTest {
     fun setUp() {
         testDispatcher = TestDispatcherProvider()
         sut = TransactionsRepositoryImpl(
-            mockStarlingApiService,
-            testDispatcher
+            mockStarlingApiService
         )
     }
 
@@ -94,11 +92,14 @@ class TransactionsRepositoryImplTest {
                 expectedTransactionResponse = NetworkResult.Success(it.data?.toTransactionsDomain())
             }
 
-            var sutTransactionResponse:NetworkResult<TransactionsDomain>? = null
-            sut.getTransactionsBetween(userAccount).collect{
-            sutTransactionResponse = it
+            var sutTransactionResponse: NetworkResult<TransactionsDomain>? = null
+            sut.getTransactionsBetween(userAccount).also {
+                sutTransactionResponse = it
             }
 
-            assertEquals(expectedTransactionResponse?.data?.feedItems,sutTransactionResponse?.data?.feedItems)
-}
+            assertEquals(
+                expectedTransactionResponse?.data?.feedItems,
+                sutTransactionResponse?.data?.feedItems
+            )
+        }
 }

@@ -10,8 +10,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.challenge.common.enums.Screens
 import com.challenge.common.utils.NetworkStatus
-import com.challenge.home.ui.HomeScreen
-import com.challenge.home.ui.HomeViewModel
+import com.challenge.home.presentation.HomeScreen
+import com.challenge.home.presentation.HomeViewModel
 
 @SuppressLint("VisibleForTests")
 fun NavGraphBuilder.homeScreen(

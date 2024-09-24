@@ -1,16 +1,15 @@
 package com.challenge.account.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.challenge.api.StarlingApiService
-import com.challenge.common.NetworkResult
-import com.challenge.common.model.accountDomain.AccountDomain
-import com.challenge.common.model.accountDomain.AccountsDomain
+import com.challenge.common.model.NetworkResult
+import com.challenge.mapper.account.model.AccountDomain
+import com.challenge.mapper.account.model.AccountsDomain
 import com.challenge.common.model.accountDto.AccountDto
 import com.challenge.common.model.accountDto.AccountsDto
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.utils.TestDispatcherProvider
 import com.challenge.repository.account.AccountRepositoryImpl
-import com.challenge.repository.account.toAccountsDomain
+import com.challenge.mapper.account.toAccountsDomain
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +31,7 @@ class AccountRepositoryImplTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val mockStarlingApiService = mockk<StarlingApiService>(relaxed = true)
+    private val mockStarlingApiService = mockk<com.challenge.starlingbank.networklayer.api.StarlingApiService>(relaxed = true)
 
     private lateinit var testDispatcher: TestDispatcherProvider
     private lateinit var sut: AccountRepositoryImpl
@@ -41,8 +40,7 @@ class AccountRepositoryImplTest {
     fun setUp() {
         testDispatcher = TestDispatcherProvider()
         sut = AccountRepositoryImpl(
-            mockStarlingApiService,
-            testDispatcher
+            mockStarlingApiService
         )
     }
 
@@ -81,7 +79,7 @@ class AccountRepositoryImplTest {
             }
 
             var sutAccountsResponse: NetworkResult<AccountsDomain>? = null
-            sut.getAccounts().collect {
+            sut.getAccounts().also {
                 sutAccountsResponse = it
             }
             assertEquals(expectedAccountsResponse?.data, sutAccountsResponse?.data?.accounts)

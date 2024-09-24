@@ -2,13 +2,13 @@ package com.challenge.savingsgoals
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.utils.MainCoroutineRule
-import com.challenge.common.NetworkResult
-import com.challenge.common.model.newsavingdomain.NewSavingGoalResponseDomain
-import com.challenge.usecase.CreateNewSavingGoalUseCase
+import com.challenge.starlingbank.networklayer.model.NetworkResult
+import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
+import com.challenge.savingsgoals.domain.usecase.CreateNewSavingGoalUseCase
 import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.common.model.savinggoaldto.SavingTarget
 import com.challenge.savingsgoals.mapper.NewSavingGoalMapper
-import com.challenge.ui.AddNewGoalViewModel
+import com.challenge.savingsgoals.presentation.AddNewGoalViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,8 +54,8 @@ class AddNewGoalViewModelTest {
 
             coEvery { mockNewSavingGoalMapper.map("France", "GBP", 1234) } returns newSavingGoal
 
-            val networkResult: NetworkResult<NewSavingGoalResponseDomain> =
-                NetworkResult.Success(newSavingGoalResponseDomain)
+            val networkResult: com.challenge.starlingbank.networklayer.model.NetworkResult<NewSavingGoalResponseDomain> =
+                com.challenge.starlingbank.networklayer.model.NetworkResult.Success(newSavingGoalResponseDomain)
 
             val createNewFlow = flow {
                 emit(networkResult)
@@ -78,14 +78,14 @@ class AddNewGoalViewModelTest {
 
             coEvery { mockNewSavingGoalMapper.map("France", "GBP", 1234) } returns newSavingGoal
 
-            val networkResult: NetworkResult<NewSavingGoalResponseDomain> =
-                NetworkResult.Error(401,"Token Expired")
+            val networkResult: com.challenge.starlingbank.networklayer.model.NetworkResult<NewSavingGoalResponseDomain> =
+                com.challenge.starlingbank.networklayer.model.NetworkResult.Error(401,"Token Expired")
 
             val createNewFlow = flow {
                 emit(networkResult)
             }
 
-            var expectedResponse:NewSavingGoalResponseDomain? = null
+            var expectedResponse: NewSavingGoalResponseDomain? = null
             createNewFlow.collect{
                 expectedResponse = it.data
             }
