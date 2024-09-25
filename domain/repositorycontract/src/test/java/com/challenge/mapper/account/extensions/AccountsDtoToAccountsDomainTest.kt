@@ -1,6 +1,6 @@
 package com.challenge.mapper.account.extensions
 
-import com.challenge.mapper.account.model.AccountDomain
+import com.challenge.model.account.AccountDomain
 import com.challenge.common.model.accountDto.AccountDto
 import com.challenge.common.model.accountDto.AccountsDto
 import com.challenge.mapper.account.toAccountsDomain

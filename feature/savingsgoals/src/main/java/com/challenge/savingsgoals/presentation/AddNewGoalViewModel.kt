@@ -4,7 +4,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
+import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
 import com.challenge.savingsgoals.domain.usecase.CreateNewSavingGoalUseCase
 import com.challenge.savingsgoals.mapper.NewSavingGoalMapper
 import dagger.hilt.android.lifecycle.HiltViewModel

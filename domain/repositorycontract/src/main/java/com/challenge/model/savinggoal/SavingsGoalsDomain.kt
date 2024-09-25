@@ -1,3 +1,3 @@
-package com.challenge.mapper.savinggoal.model
+package com.challenge.model.savinggoal
 
 data class SavingsGoalsDomain(val list:List<SavingsGoalDomain>)

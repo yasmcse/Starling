@@ -2,8 +2,8 @@ package com.challenge.account.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.account.model.AccountDomain
-import com.challenge.mapper.account.model.AccountsDomain
+import com.challenge.model.account.AccountDomain
+import com.challenge.model.account.AccountsDomain
 import com.challenge.common.model.accountDto.AccountDto
 import com.challenge.common.model.accountDto.AccountsDto
 import com.challenge.common.utils.MainCoroutineRule

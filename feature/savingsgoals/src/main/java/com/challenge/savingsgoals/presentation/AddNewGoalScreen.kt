@@ -40,7 +40,7 @@ import com.challenge.common.model.NetworkResult
 import com.challenge.designsystem.component.CircularProgressComposable
 import com.challenge.designsystem.theme.Blue
 import com.challenge.designsystem.theme.WhiteSmoke
-import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
+import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
 import com.challenge.common.utils.NetworkStatus
 import com.challenge.savingsgoals.R
 

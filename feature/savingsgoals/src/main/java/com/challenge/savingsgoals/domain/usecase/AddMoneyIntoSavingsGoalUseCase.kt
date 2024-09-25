@@ -2,8 +2,8 @@ package com.challenge.savingsgoals.domain.usecase
 
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.SavingsGoalDomain
-import com.challenge.mapper.transaction.model.TransferDomain
+import com.challenge.model.savinggoal.SavingsGoalDomain
+import com.challenge.model.transaction.TransferDomain
 import com.challenge.repositorycontract.SavingsGoalsRepository
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import java.util.UUID

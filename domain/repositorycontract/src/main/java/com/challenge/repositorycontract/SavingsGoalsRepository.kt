@@ -1,10 +1,10 @@
 package com.challenge.repositorycontract
 
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
-import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
+import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
+import com.challenge.model.savinggoal.SavingsGoalsDomain
 import com.challenge.common.model.newsavingdto.NewSavingGoal
-import com.challenge.mapper.transaction.model.TransferDomain
+import com.challenge.model.transaction.TransferDomain
 import com.challenge.common.model.savinggoals.SavingAmount
 
 interface SavingsGoalsRepository {

@@ -1,4 +1,4 @@
-package com.challenge.mapper.account.model
+package com.challenge.model.account
 
 
 data class AccountsDomain(val accounts: List<AccountDomain>)

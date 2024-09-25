@@ -1,7 +1,7 @@
 package com.challenge.mapper.transaction
 
-import com.challenge.mapper.transaction.model.TransactionDomain
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionDomain
+import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.common.model.transactiondto.TransactionsDto
 
 fun TransactionsDto.toTransactionsDomain(): TransactionsDomain {

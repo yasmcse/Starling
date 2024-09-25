@@ -7,8 +7,8 @@ import com.challenge.util.CurrencyUnitsMapper
 import com.challenge.common.utils.DispatcherProvider
 import com.challenge.common.model.NetworkResult
 import com.challenge.home.domain.usecase.FetchTransactionsUseCase
-import com.challenge.mapper.transaction.model.TransactionDomain
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionDomain
+import com.challenge.model.transaction.TransactionsDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -5,11 +5,11 @@ import com.challenge.common.model.NetworkResult
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.Amount
 import com.challenge.common.model.accountDto.AccountDto
-import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
+import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
 import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.common.model.newsavingdto.NewSavingGoalResponseDto
-import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
-import com.challenge.mapper.transaction.model.TransferDomain
+import com.challenge.model.savinggoal.SavingsGoalsDomain
+import com.challenge.model.transaction.TransferDomain
 import com.challenge.common.model.savinggoaldto.SavingGoalTransferResponseDto
 import com.challenge.common.model.savinggoaldto.SavingGoalsStatus
 import com.challenge.common.model.savinggoaldto.SavingTarget

@@ -1,7 +1,8 @@
 package com.challenge.util
 
 import com.challenge.common.model.Amount
-import com.challenge.mapper.transaction.model.TransactionDomain
+import com.challenge.model.transaction.TransactionDomain
+import com.challenge.model.savinggoal.SavingsGoalDomain
 import java.lang.String
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -12,13 +13,13 @@ import kotlin.math.floor
 import kotlin.with
 
 class CurrencyUnitsMapper @Inject constructor() {
-    fun convertMinorUnitToMajorUnit(minorUnitsList: List<com.challenge.mapper.transaction.model.TransactionDomain>): List<com.challenge.mapper.transaction.model.TransactionDomain> {
+    fun convertMinorUnitToMajorUnit(minorUnitsList: List<TransactionDomain>): List<TransactionDomain> {
         val convertedList: MutableList<TransactionDomain> = mutableListOf()
 
         for (transaction in minorUnitsList) {
             with(transaction) {
                 convertedList.add(
-                    com.challenge.mapper.transaction.model.TransactionDomain(
+                    TransactionDomain(
                         feedItemUid, categoryUid,
                         Amount(
                             amount.currency,
@@ -38,13 +39,13 @@ class CurrencyUnitsMapper @Inject constructor() {
         return convertedList
     }
 
-    fun convertSavingGoalUnits(minorUnitsList: List<com.challenge.mapper.savinggoal.model.SavingsGoalDomain>): List<com.challenge.mapper.savinggoal.model.SavingsGoalDomain> {
-        val convertedList: MutableList<com.challenge.mapper.savinggoal.model.SavingsGoalDomain> = mutableListOf()
+    fun convertSavingGoalUnits(minorUnitsList: List<SavingsGoalDomain>): List<SavingsGoalDomain> {
+        val convertedList: MutableList<SavingsGoalDomain> = mutableListOf()
 
         for (savingGoal in minorUnitsList) {
             with(savingGoal) {
                 convertedList.add(
-                    com.challenge.mapper.savinggoal.model.SavingsGoalDomain(
+                    SavingsGoalDomain(
                         savingsGoalUid,
                         name,
                         Amount(
@@ -91,7 +92,7 @@ class CurrencyUnitsMapper @Inject constructor() {
         }
     }
 
-    fun sumUpFractionPartMajorUnit(list: List<com.challenge.mapper.transaction.model.TransactionDomain>): Double {
+    fun sumUpFractionPartMajorUnit(list: List<TransactionDomain>): Double {
         var sum = 0.0
         for (transaction in list) {
             val bigDecimal = BigDecimal(String.valueOf(transaction.amount.majorUnit))

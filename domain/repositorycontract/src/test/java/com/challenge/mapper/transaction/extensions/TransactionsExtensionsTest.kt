@@ -1,8 +1,8 @@
 package com.challenge.mapper.transaction.extensions
 
 import com.challenge.common.model.Amount
-import com.challenge.mapper.transaction.model.TransactionDomain
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionDomain
+import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.common.model.transactiondto.TransactionDto
 import com.challenge.common.model.transactiondto.TransactionsDto
 import com.challenge.mapper.transaction.toTransactionsDomain

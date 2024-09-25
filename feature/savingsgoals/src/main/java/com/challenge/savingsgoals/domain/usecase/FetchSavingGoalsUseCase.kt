@@ -2,7 +2,7 @@ package com.challenge.savingsgoals.domain.usecase
 
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
+import com.challenge.model.savinggoal.SavingsGoalsDomain
 import com.challenge.repositorycontract.SavingsGoalsRepository
 import javax.inject.Inject
 

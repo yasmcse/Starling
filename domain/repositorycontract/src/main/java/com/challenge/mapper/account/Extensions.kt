@@ -1,6 +1,6 @@
 package com.challenge.mapper.account
 
-import com.challenge.mapper.account.model.AccountDomain
+import com.challenge.model.account.AccountDomain
 import com.challenge.common.model.accountDto.AccountsDto
 
 fun AccountsDto.toAccountsDomain(): List<AccountDomain> {

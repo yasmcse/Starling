@@ -1,4 +1,4 @@
-package com.challenge.mapper.transaction.model
+package com.challenge.model.transaction
 
 
 data class TransactionsDomain(val  feedItems:List<TransactionDomain>)

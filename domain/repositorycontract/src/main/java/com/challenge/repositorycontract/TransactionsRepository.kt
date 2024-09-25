@@ -2,7 +2,7 @@ package com.challenge.repositorycontract
 
 import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.accountDto.UserAccount
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionsDomain
 
 interface TransactionsRepository {
     suspend fun getTransactionsBetween(

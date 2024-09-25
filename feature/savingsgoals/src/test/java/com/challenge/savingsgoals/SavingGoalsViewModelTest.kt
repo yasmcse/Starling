@@ -6,8 +6,8 @@ import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.starlingbank.networklayer.model.NetworkResult
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.Amount
-import com.challenge.mapper.savinggoal.model.SavingsGoalDomain
-import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
+import com.challenge.model.savinggoal.SavingsGoalDomain
+import com.challenge.model.savinggoal.SavingsGoalsDomain
 import com.challenge.repositorycontract.SavingsGoalsRepository
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import com.challenge.savingsgoals.presentation.SavingGoalsViewModel

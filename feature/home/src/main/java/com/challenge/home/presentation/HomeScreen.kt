@@ -32,8 +32,8 @@ import com.challenge.designsystem.component.CircularProgressComposable
 import com.challenge.designsystem.theme.Purple40
 import com.challenge.designsystem.theme.TropicalGreen
 import com.challenge.designsystem.theme.WhiteSmoke
-import com.challenge.mapper.transaction.model.TransactionDomain
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionDomain
+import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.common.utils.NetworkStatus
 import com.challenge.home.R.string
 

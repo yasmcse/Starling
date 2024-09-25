@@ -3,6 +3,8 @@ package com.challenge.mapper
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.common.model.Amount
+import com.challenge.model.savinggoal.SavingsGoalDomain
+import com.challenge.model.transaction.TransactionDomain
 import com.challenge.util.CurrencyUnitsMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
@@ -32,7 +34,7 @@ class CurrencyUnitsMapperTest {
     fun `Convert minor units to major units`() {
         // Transactions list in minor units test data
         val amount = Amount("GBP", 1234L, 0.0)
-        val transactionDomain = com.challenge.mapper.transaction.model.TransactionDomain(
+        val transactionDomain = TransactionDomain(
             "FeedItemUid",
             "CategoryUid",
             amount,
@@ -43,7 +45,7 @@ class CurrencyUnitsMapperTest {
 
         // Transactions list in major units computed
         val amount2 = Amount("GBP", 1234L, 12.34)
-        val transactionDomain2 = com.challenge.mapper.transaction.model.TransactionDomain(
+        val transactionDomain2 = TransactionDomain(
             "FeedItemUid",
             "CategoryUid",
             amount2,
@@ -60,7 +62,7 @@ class CurrencyUnitsMapperTest {
         // Saving Goals test data
         val targetAmount = Amount("GBP", 1234L, 0.0)
         val totalSaved = Amount("GBP", 1234L, 0.0)
-        val savingGoal = com.challenge.mapper.savinggoal.model.SavingsGoalDomain(
+        val savingGoal = SavingsGoalDomain(
             "savingsGoalUid",
             "TRip to france",
             targetAmount,
@@ -72,7 +74,7 @@ class CurrencyUnitsMapperTest {
         // Saving Goals test data
         val expectedTargetAmount = Amount("GBP", 1234L, 12.34)
         val expectedTotalSaved = Amount("GBP", 1234L, 12.34)
-        val expectedSavingGoal = com.challenge.mapper.savinggoal.model.SavingsGoalDomain(
+        val expectedSavingGoal = SavingsGoalDomain(
             "savingsGoalUid",
             "TRip to france",
             expectedTargetAmount,
@@ -108,7 +110,7 @@ class CurrencyUnitsMapperTest {
     fun `sum up fractional part of major unit`() {
         // Transactions list in minor units test data
         val amount = Amount("GBP", 1234L, 12.34)
-        val transactionDomain = com.challenge.mapper.transaction.model.TransactionDomain(
+        val transactionDomain = TransactionDomain(
             "FeedItemUid",
             "CategoryUid",
             amount,
@@ -119,7 +121,7 @@ class CurrencyUnitsMapperTest {
 
         // Transactions list in major units computed
         val amount2 = Amount("GBP", 1234L, 12.34)
-        val transactionDomain2 = com.challenge.mapper.transaction.model.TransactionDomain(
+        val transactionDomain2 = TransactionDomain(
             "FeedItemUid",
             "CategoryUid",
             amount2,

@@ -1,4 +1,4 @@
-package com.challenge.mapper.transaction.model
+package com.challenge.model.transaction
 
 import com.challenge.common.model.Amount
 

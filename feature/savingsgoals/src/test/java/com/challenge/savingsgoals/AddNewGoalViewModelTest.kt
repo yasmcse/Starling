@@ -3,7 +3,7 @@ package com.challenge.savingsgoals
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.utils.MainCoroutineRule
 import com.challenge.starlingbank.networklayer.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.NewSavingGoalResponseDomain
+import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
 import com.challenge.savingsgoals.domain.usecase.CreateNewSavingGoalUseCase
 import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.common.model.savinggoaldto.SavingTarget

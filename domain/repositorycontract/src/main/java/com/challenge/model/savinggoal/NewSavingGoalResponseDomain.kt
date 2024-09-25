@@ -1,4 +1,4 @@
-package com.challenge.mapper.savinggoal.model
+package com.challenge.model.savinggoal
 
 data class NewSavingGoalResponseDomain(
     val savingsGoalUid: String,

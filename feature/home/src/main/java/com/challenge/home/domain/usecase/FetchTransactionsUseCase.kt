@@ -3,7 +3,7 @@ package com.challenge.home.domain.usecase
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.accountDto.UserAccount
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.repositorycontract.AccountRepository
 import com.challenge.repositorycontract.TransactionsRepository
 import javax.inject.Inject

@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.util.CurrencyUnitsMapper
 import com.challenge.common.model.NetworkResult
-import com.challenge.mapper.savinggoal.model.SavingsGoalDomain
-import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
-import com.challenge.mapper.transaction.model.TransferDomain
+import com.challenge.model.savinggoal.SavingsGoalDomain
+import com.challenge.model.savinggoal.SavingsGoalsDomain
+import com.challenge.model.transaction.TransferDomain
 import com.challenge.savingsgoals.domain.usecase.AddMoneyIntoSavingsGoalUseCase
 import com.challenge.savingsgoals.domain.usecase.FetchSavingGoalsUseCase
-import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

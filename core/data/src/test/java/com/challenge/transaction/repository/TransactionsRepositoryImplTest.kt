@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.Amount
 import com.challenge.common.model.accountDto.UserAccount
-import com.challenge.mapper.transaction.model.TransactionsDomain
+import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.common.model.transactiondto.TransactionDto
 import com.challenge.common.model.transactiondto.TransactionsDto
 import com.challenge.common.utils.MainCoroutineRule
