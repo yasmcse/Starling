@@ -9,6 +9,6 @@ class CreateNewSavingGoalUseCase @Inject constructor(
     private val savingGoalsRepository: SavingsGoalsRepository,
     private val userAccountRepository: UserAccountRepository
 ) {
-    suspend fun createNewSavingGoal(newSavingGoal: NewSavingGoal) =
+    suspend operator fun invoke(newSavingGoal: NewSavingGoal) =
         savingGoalsRepository.createNewSavingGoal(userAccountRepository.getAccountUid(),newSavingGoal)
 }

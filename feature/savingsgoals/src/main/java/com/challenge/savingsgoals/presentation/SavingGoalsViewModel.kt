@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.util.CurrencyUnitsMapper
-import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
 import com.challenge.mapper.savinggoal.model.SavingsGoalDomain
 import com.challenge.mapper.savinggoal.model.SavingsGoalsDomain
 import com.challenge.mapper.transaction.model.TransferDomain
-import com.challenge.repositorycontract.SavingsGoalsRepository
+import com.challenge.savingsgoals.domain.usecase.AddMoneyIntoSavingsGoalUseCase
+import com.challenge.savingsgoals.domain.usecase.FetchSavingGoalsUseCase
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,16 +17,15 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class SavingGoalsViewModel @Inject constructor(
-    private val savingGoalsRepository: SavingsGoalsRepository,
-    private val userAccountRepository: UserAccountRepository,
+    private val addMoneyIntoSavingsGoalUseCase: AddMoneyIntoSavingsGoalUseCase,
     private val currencyUnitsMapper: CurrencyUnitsMapper,
-    private val currencyAndAmountMapper: CurrencyAndAmountMapper
-) : ViewModel() {
+    private val fetchSavingGoalsUseCase: FetchSavingGoalsUseCase,
+
+    ) : ViewModel() {
 
     private val _savingsGoalsList: MutableStateFlow<NetworkResult<SavingsGoalsDomain>> =
         MutableStateFlow(NetworkResult.Loading())
@@ -43,34 +42,15 @@ class SavingGoalsViewModel @Inject constructor(
         )
 
     fun fetchSavingsGoals() = viewModelScope.launch {
-        userAccountRepository.getAccountUid()?.let { accountUid ->
-            savingGoalsRepository
-                .getAllSavingGoals(accountUid)
-                .also {
-                    _savingsGoalsList.value = it
-                }
+        fetchSavingGoalsUseCase.invoke().also {
+            _savingsGoalsList.value = it
         }
     }
 
-    fun addMoneyIntoSavingGoals(roundUpSum: Long, savingsGoalDomain: SavingsGoalDomain?) {
-
-        val accountUid = userAccountRepository.getAccountUid()
-        val savingAmount =
-            savingsGoalDomain?.target?.currency?.let { currencyAndAmountMapper.map(it, roundUpSum) }
-
+    fun addMoneyIntoSavingGoals(roundUpSum: Long, savingsGoalDomain: SavingsGoalDomain?) =
         viewModelScope.launch {
-            accountUid?.let { uid ->
-                savingGoalsRepository.addMoneyIntoSavingGoal(
-                    uid,
-                    savingsGoalDomain?.savingsGoalUid!!,
-                    UUID.randomUUID().toString(),
-                    savingAmount!!
-                ).also {
-                    _savingGoalPosted.value = it
-                }
-            }
+            addMoneyIntoSavingsGoalUseCase.invoke(roundUpSum, savingsGoalDomain)
         }
-    }
 
     @SuppressLint("VisibleForTests")
     fun getCurrencyInReadable(minorUnitsList: List<SavingsGoalDomain>) =

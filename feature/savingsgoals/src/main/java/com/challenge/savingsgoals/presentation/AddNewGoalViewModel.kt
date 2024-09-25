@@ -28,7 +28,7 @@ class AddNewGoalViewModel @Inject constructor(
         currency: String,
         amount: Long
     ) = viewModelScope.launch {
-        createNewSavingGoalUseCase.createNewSavingGoal(
+        createNewSavingGoalUseCase.invoke(
             newSavingGoalMapper.map(tripName, currency, amount)
         ).also {
             _newGoal.value = it
