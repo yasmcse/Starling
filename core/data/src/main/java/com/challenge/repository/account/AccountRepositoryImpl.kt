@@ -3,7 +3,7 @@ package com.challenge.repository.account
 import com.challenge.common.model.NetworkResult
 import com.challenge.model.account.AccountsDomain
 import com.challenge.mapper.account.toAccountsDomain
-import com.challenge.repositorycontract.AccountRepository
+import com.challenge.repositories.AccountRepository
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(

@@ -8,7 +8,7 @@ import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.Amount
 import com.challenge.model.savinggoal.SavingsGoalDomain
 import com.challenge.model.savinggoal.SavingsGoalsDomain
-import com.challenge.repositorycontract.SavingsGoalsRepository
+import com.challenge.repositories.SavingsGoalsRepository
 import com.challenge.savingsgoals.mapper.CurrencyAndAmountMapper
 import com.challenge.savingsgoals.presentation.SavingGoalsViewModel
 import io.mockk.coEvery

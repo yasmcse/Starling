@@ -4,7 +4,7 @@ import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.accountDto.UserAccount
 import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.mapper.transaction.toTransactionsDomain
-import com.challenge.repositorycontract.TransactionsRepository
+import com.challenge.repositories.TransactionsRepository
 import javax.inject.Inject
 
 

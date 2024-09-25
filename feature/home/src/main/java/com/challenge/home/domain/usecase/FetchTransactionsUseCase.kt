@@ -4,8 +4,8 @@ import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
 import com.challenge.common.model.accountDto.UserAccount
 import com.challenge.model.transaction.TransactionsDomain
-import com.challenge.repositorycontract.AccountRepository
-import com.challenge.repositorycontract.TransactionsRepository
+import com.challenge.repositories.AccountRepository
+import com.challenge.repositories.TransactionsRepository
 import javax.inject.Inject
 
 class FetchTransactionsUseCase @Inject constructor(

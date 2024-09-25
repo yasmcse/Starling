@@ -9,7 +9,7 @@ import com.challenge.common.model.savinggoals.SavingAmount
 import com.challenge.mapper.savinggoal.toNewSavingGoalResponseDomain
 import com.challenge.mapper.savinggoal.toSavingGoalTransferDomain
 import com.challenge.mapper.savinggoal.toSavingsGoalsDomain
-import com.challenge.repositorycontract.SavingsGoalsRepository
+import com.challenge.repositories.SavingsGoalsRepository
 import javax.inject.Inject
 
 

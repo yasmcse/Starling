@@ -1,4 +1,4 @@
-package com.challenge.repositorycontract
+package com.challenge.repositories
 
 import com.challenge.common.model.NetworkResult
 import com.challenge.model.account.AccountsDomain

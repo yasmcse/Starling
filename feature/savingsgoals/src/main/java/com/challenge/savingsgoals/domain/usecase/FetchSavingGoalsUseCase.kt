@@ -3,7 +3,7 @@ package com.challenge.savingsgoals.domain.usecase
 import com.challenge.common.UserAccountRepository
 import com.challenge.common.model.NetworkResult
 import com.challenge.model.savinggoal.SavingsGoalsDomain
-import com.challenge.repositorycontract.SavingsGoalsRepository
+import com.challenge.repositories.SavingsGoalsRepository
 import javax.inject.Inject
 
 class FetchSavingGoalsUseCase @Inject constructor(
