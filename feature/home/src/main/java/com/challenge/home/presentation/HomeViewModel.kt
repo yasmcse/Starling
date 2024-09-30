@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow(NetworkResult.Loading())
     val transactionsList = _transactionsList.asStateFlow()
 
-    fun fetchTransactions() = viewModelScope.launch(dispatcherProvider.default) {
+    fun fetchTransactions() = viewModelScope.launch {
         _transactionsList.value = fetchTransactionsUseCase.invoke()
     }
 
