@@ -1,8 +1,7 @@
-package com.challenge.savingsgoals
+package com.challenge.savingsgoals.mapper
 
 import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.common.model.savinggoaldto.SavingTarget
-import com.challenge.savingsgoals.mapper.NewSavingGoalMapper
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

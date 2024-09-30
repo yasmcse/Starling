@@ -1,4 +1,4 @@
-package com.challenge.savingsgoals
+package com.challenge.savingsgoals.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.common.model.Amount
@@ -8,7 +8,6 @@ import com.challenge.model.savinggoal.SavingsGoalsDomain
 import com.challenge.model.transaction.TransferDomain
 import com.challenge.savingsgoals.domain.usecase.AddMoneyIntoSavingsGoalUseCase
 import com.challenge.savingsgoals.domain.usecase.FetchSavingGoalsUseCase
-import com.challenge.savingsgoals.presentation.SavingGoalsViewModel
 import com.challenge.util.CurrencyUnitsMapper
 import io.mockk.*
 import kotlinx.coroutines.Dispatchers

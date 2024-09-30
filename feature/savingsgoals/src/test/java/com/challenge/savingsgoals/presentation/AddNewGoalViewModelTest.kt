@@ -1,4 +1,4 @@
-package com.challenge.savingsgoals
+package com.challenge.savingsgoals.presentation
 
 import android.text.TextUtils
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -7,7 +7,6 @@ import com.challenge.common.model.newsavingdto.NewSavingGoal
 import com.challenge.model.savinggoal.NewSavingGoalResponseDomain
 import com.challenge.savingsgoals.domain.usecase.CreateNewSavingGoalUseCase
 import com.challenge.savingsgoals.mapper.NewSavingGoalMapper
-import com.challenge.savingsgoals.presentation.AddNewGoalViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
