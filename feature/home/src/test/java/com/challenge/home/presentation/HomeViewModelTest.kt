@@ -1,9 +1,8 @@
-package com.challenge.home
+package com.challenge.home.presentation
 
 import com.challenge.common.model.NetworkResult
 import com.challenge.common.utils.DispatcherProvider
 import com.challenge.home.domain.usecase.FetchTransactionsUseCase
-import com.challenge.home.presentation.HomeViewModel
 import com.challenge.model.transaction.TransactionDomain
 import com.challenge.model.transaction.TransactionsDomain
 import com.challenge.util.CurrencyUnitsMapper
